@@ -1,0 +1,192 @@
+<title>マニュアルホーム</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<style>
+:root {
+  --pri: #1a6b75;
+  --pri-hover: #237e8a;
+  --pri-bg: #e3f2f4;
+  --surface: #f5f9fa;
+  --card: #ffffff;
+  --text: #1b2c32;
+  --text2: #6b7f87;
+  --muted-bg: #edf0f1;
+  --muted: #97a5ac;
+  --border: #d5e0e3;
+  --hdr-a: #1a6b75;
+  --hdr-b: #2a8690;
+  --shadow: 0 1px 2px rgba(26,107,117,0.06);
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --pri:#5cc4d0;--pri-hover:#7dd4de;--pri-bg:#152c31;
+    --surface:#0b181c;--card:#12252b;--text:#cde0e5;
+    --text2:#6a8590;--muted-bg:#182a30;--muted:#3f5860;
+    --border:#243a42;--hdr-a:#0e3a42;--hdr-b:#175560;
+    --shadow:0 1px 2px rgba(0,0,0,0.2);
+  }
+}
+:root[data-theme="dark"]{
+  --pri:#5cc4d0;--pri-hover:#7dd4de;--pri-bg:#152c31;
+  --surface:#0b181c;--card:#12252b;--text:#cde0e5;
+  --text2:#6a8590;--muted-bg:#182a30;--muted:#3f5860;
+  --border:#243a42;--hdr-a:#0e3a42;--hdr-b:#175560;
+  --shadow:0 1px 2px rgba(0,0,0,0.2);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",sans-serif;
+  background:var(--surface);color:var(--text);
+  max-width:480px;margin:0 auto;
+  -webkit-text-size-adjust:100%;
+  -webkit-tap-highlight-color:transparent;
+}
+.hdr{
+  background:linear-gradient(135deg,var(--hdr-a),var(--hdr-b));
+  color:#fff;padding:10px 14px 8px;
+  display:flex;align-items:baseline;gap:8px;
+}
+.hdr-title{font-size:15px;font-weight:700;letter-spacing:.02em}
+.hdr-sub{font-size:10px;opacity:.75}
+.search{padding:5px 10px 2px;position:relative}
+.search svg{position:absolute;left:18px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--text2)}
+.search input{
+  width:100%;height:28px;border:1px solid var(--border);border-radius:6px;
+  padding:0 8px 0 28px;font-size:11px;background:var(--card);color:var(--text);
+  outline:none;font-family:inherit;
+}
+.search input:focus{border-color:var(--pri);box-shadow:0 0 0 2px var(--pri-bg)}
+.search input::placeholder{color:var(--text2)}
+.main{padding:2px 10px 6px}
+.sec{margin-bottom:2px}
+.sec-hd{
+  display:flex;align-items:center;gap:5px;
+  padding:4px 0 2px;border-left:3px solid var(--pri);
+  padding-left:7px;cursor:pointer;user-select:none;
+}
+.sec-hd:active{opacity:.7}
+.sec-t{font-size:12.5px;font-weight:700;color:var(--pri);flex:1}
+.sec-n{font-size:9px;color:var(--text2);background:var(--muted-bg);padding:1px 5px;border-radius:7px}
+.sec-ch{
+  width:12px;height:12px;color:var(--text2);
+  transition:transform .15s ease;flex-shrink:0;
+}
+.sec.shut .sec-ch{transform:rotate(-90deg)}
+.sec.shut .sec-items{display:none}
+.sec-items{padding:1px 0 0 10px}
+.item{
+  display:flex;align-items:center;height:24px;
+  padding:0 4px;border-radius:4px;
+  text-decoration:none;color:inherit;font-size:12px;
+  transition:background .12s;
+}
+a.item{color:var(--text)}
+a.item:hover,a.item:focus-visible{background:var(--pri-bg);outline:none}
+.item.prep{color:var(--muted)}
+.item-n{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item-badge{
+  font-size:9px;padding:0 4px;border-radius:3px;
+  background:var(--muted-bg);color:var(--muted);flex-shrink:0;margin-left:3px;
+}
+.item-arr{font-size:9px;color:var(--pri);margin-left:3px;flex-shrink:0}
+.no-results{
+  text-align:center;padding:20px 0;font-size:12px;color:var(--text2);display:none;
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="hdr">
+  <span class="hdr-title">マニュアルホーム</span>
+  <span class="hdr-sub">薬局スタッフ用</span>
+</div>
+
+<div class="search">
+  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="12.5" y1="12.5" x2="17" y2="17"/></svg>
+  <input type="search" id="q" placeholder="検索（例：レセコン）" autocomplete="off">
+</div>
+
+<div class="main" id="main">
+
+  <div class="sec" data-cat>
+    <div class="sec-hd" onclick="toggle(this)">
+      <span class="sec-t">申請フォーム</span>
+      <span class="sec-n">3</span>
+      <svg class="sec-ch" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5,3 11,8 5,13"/></svg>
+    </div>
+    <div class="sec-items">
+      <a class="item" href="#" data-s="残業申請"><span class="item-n">残業申請</span><span class="item-arr">&#8250;</span></a>
+      <a class="item" href="#" data-s="購入申請"><span class="item-n">購入申請</span><span class="item-arr">&#8250;</span></a>
+      <a class="item" href="#" data-s="会社への要望・相談（ハラスメント相談含む）"><span class="item-n">会社への要望・相談</span><span class="item-arr">&#8250;</span></a>
+    </div>
+  </div>
+
+  <div class="sec" data-cat>
+    <div class="sec-hd" onclick="toggle(this)">
+      <span class="sec-t">新人・研修用マニュアル</span>
+      <span class="sec-n">3</span>
+      <svg class="sec-ch" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5,3 11,8 5,13"/></svg>
+    </div>
+    <div class="sec-items">
+      <div class="item prep" data-s="入社時オリエンテーション"><span class="item-n">入社時オリエンテーション</span><span class="item-badge">準備中</span></div>
+      <div class="item prep" data-s="基本業務の流れ"><span class="item-n">基本業務の流れ</span><span class="item-badge">準備中</span></div>
+      <div class="item prep" data-s="研修チェックリスト"><span class="item-n">研修チェックリスト</span><span class="item-badge">準備中</span></div>
+    </div>
+  </div>
+
+  <div class="sec" data-cat>
+    <div class="sec-hd" onclick="toggle(this)">
+      <span class="sec-t">業務マニュアル・SOP</span>
+      <span class="sec-n">7</span>
+      <svg class="sec-ch" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5,3 11,8 5,13"/></svg>
+    </div>
+    <div class="sec-items">
+      <div class="item prep" data-s="調剤業務手順"><span class="item-n">調剤業務手順</span><span class="item-badge">準備中</span></div>
+      <div class="item prep" data-s="服薬指導の手順"><span class="item-n">服薬指導の手順</span><span class="item-badge">準備中</span></div>
+      <div class="item prep" data-s="在庫管理・発注"><span class="item-n">在庫管理・発注</span><span class="item-badge">準備中</span></div>
+      <div class="item prep" data-s="レセプト・会計業務"><span class="item-n">レセプト・会計業務</span><span class="item-badge">準備中</span></div>
+      <div class="item prep" data-s="レセコン操作マニュアル"><span class="item-n">レセコン操作マニュアル</span><span class="item-badge">準備中</span></div>
+      <div class="item prep" data-s="電子薬歴の使い方"><span class="item-n">電子薬歴の使い方</span><span class="item-badge">準備中</span></div>
+      <div class="item prep" data-s="分包機など機器操作"><span class="item-n">分包機など機器操作</span><span class="item-badge">準備中</span></div>
+    </div>
+  </div>
+
+  <div class="sec" data-cat>
+    <div class="sec-hd" onclick="toggle(this)">
+      <span class="sec-t">その他・共通ルール</span>
+      <span class="sec-n">2</span>
+      <svg class="sec-ch" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5,3 11,8 5,13"/></svg>
+    </div>
+    <div class="sec-items">
+      <div class="item prep" data-s="緊急時対応"><span class="item-n">緊急時対応</span><span class="item-badge">準備中</span></div>
+      <div class="item prep" data-s="社内ルール・規定"><span class="item-n">社内ルール・規定</span><span class="item-badge">準備中</span></div>
+    </div>
+  </div>
+
+  <div class="no-results" id="nr">該当するマニュアルがありません</div>
+</div>
+
+<script>
+function toggle(hd){
+  hd.closest('.sec').classList.toggle('shut');
+}
+const q=document.getElementById('q');
+const secs=document.querySelectorAll('[data-cat]');
+const nr=document.getElementById('nr');
+q.addEventListener('input',()=>{
+  const v=q.value.trim().toLowerCase();
+  let any=false;
+  secs.forEach(s=>{
+    const items=s.querySelectorAll('.item');
+    let found=false;
+    items.forEach(i=>{
+      const t=(i.dataset.s||'').toLowerCase();
+      const show=!v||t.includes(v);
+      i.style.display=show?'':'none';
+      if(show)found=true;
+    });
+    s.style.display=found?'':'none';
+    if(found){any=true;s.classList.remove('shut')}
+  });
+  nr.style.display=any?'none':'block';
+});
+</script>
