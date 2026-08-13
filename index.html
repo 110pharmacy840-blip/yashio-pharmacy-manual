@@ -4,189 +4,254 @@
 <style>
 :root {
   --pri: #1a6b75;
-  --pri-hover: #237e8a;
-  --pri-bg: #e3f2f4;
+  --pri-light: #e3f2f4;
+  --pri-hover: #15575f;
   --surface: #f5f9fa;
   --card: #ffffff;
   --text: #1b2c32;
   --text2: #6b7f87;
-  --muted-bg: #edf0f1;
   --muted: #97a5ac;
+  --muted-bg: #edf0f1;
   --border: #d5e0e3;
   --hdr-a: #1a6b75;
   --hdr-b: #2a8690;
-  --shadow: 0 1px 2px rgba(26,107,117,0.06);
+  --shadow: 0 2px 8px rgba(26,107,117,0.10);
 }
 @media(prefers-color-scheme:dark){
   :root:not([data-theme="light"]){
-    --pri:#5cc4d0;--pri-hover:#7dd4de;--pri-bg:#152c31;
+    --pri:#5cc4d0;--pri-light:#152c31;--pri-hover:#4aa8b3;
     --surface:#0b181c;--card:#12252b;--text:#cde0e5;
-    --text2:#6a8590;--muted-bg:#182a30;--muted:#3f5860;
+    --text2:#6a8590;--muted:#3f5860;--muted-bg:#182a30;
     --border:#243a42;--hdr-a:#0e3a42;--hdr-b:#175560;
-    --shadow:0 1px 2px rgba(0,0,0,0.2);
+    --shadow:0 2px 8px rgba(0,0,0,0.25);
   }
 }
 :root[data-theme="dark"]{
-  --pri:#5cc4d0;--pri-hover:#7dd4de;--pri-bg:#152c31;
+  --pri:#5cc4d0;--pri-light:#152c31;--pri-hover:#4aa8b3;
   --surface:#0b181c;--card:#12252b;--text:#cde0e5;
-  --text2:#6a8590;--muted-bg:#182a30;--muted:#3f5860;
+  --text2:#6a8590;--muted:#3f5860;--muted-bg:#182a30;
   --border:#243a42;--hdr-a:#0e3a42;--hdr-b:#175560;
-  --shadow:0 1px 2px rgba(0,0,0,0.2);
+  --shadow:0 2px 8px rgba(0,0,0,0.25);
 }
 *{margin:0;padding:0;box-sizing:border-box}
 body{
   font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",sans-serif;
   background:var(--surface);color:var(--text);
-  max-width:480px;margin:0 auto;
+  max-width:480px;margin:0 auto;min-height:100dvh;
   -webkit-text-size-adjust:100%;
   -webkit-tap-highlight-color:transparent;
+  overflow-x:hidden;
 }
+#app{position:relative;overflow:hidden;min-height:100dvh}
 .hdr{
   background:linear-gradient(135deg,var(--hdr-a),var(--hdr-b));
-  color:#fff;padding:10px 14px 8px;
-  display:flex;align-items:baseline;gap:8px;
+  color:#fff;padding:14px 18px 12px;
 }
-.hdr-title{font-size:15px;font-weight:700;letter-spacing:.02em}
-.hdr-sub{font-size:10px;opacity:.75}
-.search{padding:5px 10px 2px;position:relative}
-.search svg{position:absolute;left:18px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--text2)}
-.search input{
-  width:100%;height:28px;border:1px solid var(--border);border-radius:6px;
-  padding:0 8px 0 28px;font-size:11px;background:var(--card);color:var(--text);
-  outline:none;font-family:inherit;
+.hdr-title{font-size:18px;font-weight:700;letter-spacing:.02em}
+.hdr-sub{font-size:11px;opacity:.75;margin-top:2px}
+
+/* ===== Main View ===== */
+.main{padding:12px 14px 20px}
+.cat-card{
+  display:flex;align-items:center;gap:14px;
+  background:var(--card);border-radius:12px;
+  padding:18px 16px;margin-bottom:10px;
+  box-shadow:var(--shadow);
+  cursor:pointer;user-select:none;
+  border:1px solid var(--border);
+  transition:transform .12s,box-shadow .12s;
+  text-decoration:none;color:inherit;
+  -webkit-tap-highlight-color:transparent;
 }
-.search input:focus{border-color:var(--pri);box-shadow:0 0 0 2px var(--pri-bg)}
-.search input::placeholder{color:var(--text2)}
-.main{padding:2px 10px 6px}
-.sec{margin-bottom:2px}
-.sec-hd{
-  display:flex;align-items:center;gap:5px;
-  padding:4px 0 2px;border-left:3px solid var(--pri);
-  padding-left:7px;cursor:pointer;user-select:none;
+.cat-card:active{transform:scale(.97);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.cat-icon{
+  width:44px;height:44px;border-radius:10px;
+  background:var(--pri-light);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:22px;
 }
-.sec-hd:active{opacity:.7}
-.sec-t{font-size:12.5px;font-weight:700;color:var(--pri);flex:1}
-.sec-n{font-size:9px;color:var(--text2);background:var(--muted-bg);padding:1px 5px;border-radius:7px}
-.sec-ch{
-  width:12px;height:12px;color:var(--text2);
-  transition:transform .15s ease;flex-shrink:0;
+.cat-info{flex:1;min-width:0}
+.cat-name{font-size:16px;font-weight:700;color:var(--text)}
+.cat-count{font-size:12px;color:var(--text2);margin-top:2px}
+.cat-arrow{
+  width:20px;height:20px;color:var(--text2);flex-shrink:0;
 }
-.sec.shut .sec-ch{transform:rotate(-90deg)}
-.sec.shut .sec-items{display:none}
-.sec-items{padding:1px 0 0 10px}
-.item{
-  display:flex;align-items:center;height:24px;
-  padding:0 4px;border-radius:4px;
-  text-decoration:none;color:inherit;font-size:12px;
-  transition:background .12s;
+
+/* ===== Detail View ===== */
+.detail{
+  position:absolute;top:0;left:0;width:100%;min-height:100dvh;
+  background:var(--surface);
+  transform:translateX(100%);
+  transition:transform .25s ease;
+  z-index:10;
 }
-a.item{color:var(--text)}
-a.item:hover,a.item:focus-visible{background:var(--pri-bg);outline:none}
-.item.prep{color:var(--muted)}
-.item-n{flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.item-badge{
-  font-size:9px;padding:0 4px;border-radius:3px;
-  background:var(--muted-bg);color:var(--muted);flex-shrink:0;margin-left:3px;
+.detail.active{transform:translateX(0)}
+
+.detail-hdr{
+  background:linear-gradient(135deg,var(--hdr-a),var(--hdr-b));
+  color:#fff;padding:12px 14px;
+  display:flex;align-items:center;gap:10px;
 }
-.item-arr{font-size:9px;color:var(--pri);margin-left:3px;flex-shrink:0}
-.no-results{
-  text-align:center;padding:20px 0;font-size:12px;color:var(--text2);display:none;
+.back-btn{
+  width:36px;height:36px;border-radius:8px;
+  background:rgba(255,255,255,.15);border:none;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;font-size:20px;
+  -webkit-tap-highlight-color:transparent;
 }
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.back-btn:active{background:rgba(255,255,255,.25)}
+.detail-title{font-size:17px;font-weight:700}
+.detail-icon{font-size:20px}
+
+.detail-items{padding:12px 14px}
+.d-item{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;margin-bottom:8px;
+  background:var(--card);border-radius:10px;
+  border:1px solid var(--border);
+  box-shadow:0 1px 3px rgba(26,107,117,0.05);
+  text-decoration:none;color:inherit;
+  min-height:52px;
+  transition:transform .1s;
+}
+a.d-item:active{transform:scale(.98)}
+.d-item.prep{opacity:.55}
+.d-item-icon{font-size:18px;flex-shrink:0;width:24px;text-align:center}
+.d-item-info{flex:1;min-width:0}
+.d-item-name{font-size:15px;font-weight:500}
+.d-item-badge{
+  font-size:11px;padding:2px 8px;border-radius:6px;
+  background:var(--muted-bg);color:var(--muted);flex-shrink:0;
+}
+.d-item-arr{
+  font-size:14px;color:var(--pri);flex-shrink:0;font-weight:700;
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
 </style>
 
-<div class="hdr">
-  <span class="hdr-title">マニュアルホーム</span>
-  <span class="hdr-sub">薬局スタッフ用</span>
-</div>
+<div id="app">
 
-<div class="search">
-  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="12.5" y1="12.5" x2="17" y2="17"/></svg>
-  <input type="search" id="q" placeholder="検索（例：レセコン）" autocomplete="off">
-</div>
-
-<div class="main" id="main">
-
-  <div class="sec" data-cat>
-    <div class="sec-hd" onclick="toggle(this)">
-      <span class="sec-t">申請フォーム</span>
-      <span class="sec-n">3</span>
-      <svg class="sec-ch" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5,3 11,8 5,13"/></svg>
+  <!-- Main View -->
+  <div id="mainView">
+    <div class="hdr">
+      <div class="hdr-title">マニュアルホーム</div>
+      <div class="hdr-sub">薬局スタッフ用 マニュアル一覧</div>
     </div>
-    <div class="sec-items">
-      <a class="item" href="#" data-s="残業申請"><span class="item-n">残業申請</span><span class="item-arr">&#8250;</span></a>
-      <a class="item" href="#" data-s="購入申請"><span class="item-n">購入申請</span><span class="item-arr">&#8250;</span></a>
-      <a class="item" href="#" data-s="会社への要望・相談（ハラスメント相談含む）"><span class="item-n">会社への要望・相談</span><span class="item-arr">&#8250;</span></a>
+    <div class="main">
+
+      <div class="cat-card" onclick="showDetail(0)">
+        <div class="cat-icon">📋</div>
+        <div class="cat-info">
+          <div class="cat-name">申請フォーム</div>
+          <div class="cat-count">3件のフォーム</div>
+        </div>
+        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
+      </div>
+
+      <div class="cat-card" onclick="showDetail(1)">
+        <div class="cat-icon">📚</div>
+        <div class="cat-info">
+          <div class="cat-name">新人・研修用マニュアル</div>
+          <div class="cat-count">3件のマニュアル</div>
+        </div>
+        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
+      </div>
+
+      <div class="cat-card" onclick="showDetail(2)">
+        <div class="cat-icon">💊</div>
+        <div class="cat-info">
+          <div class="cat-name">業務マニュアル・SOP</div>
+          <div class="cat-count">7件のマニュアル</div>
+        </div>
+        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
+      </div>
+
+      <div class="cat-card" onclick="showDetail(3)">
+        <div class="cat-icon">📌</div>
+        <div class="cat-info">
+          <div class="cat-name">その他・共通ルール</div>
+          <div class="cat-count">2件のルール</div>
+        </div>
+        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
+      </div>
+
     </div>
   </div>
 
-  <div class="sec" data-cat>
-    <div class="sec-hd" onclick="toggle(this)">
-      <span class="sec-t">新人・研修用マニュアル</span>
-      <span class="sec-n">3</span>
-      <svg class="sec-ch" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5,3 11,8 5,13"/></svg>
+  <!-- Detail View -->
+  <div class="detail" id="detailView">
+    <div class="detail-hdr">
+      <button class="back-btn" onclick="hideDetail()">←</button>
+      <span class="detail-icon" id="detailIcon"></span>
+      <span class="detail-title" id="detailTitle"></span>
     </div>
-    <div class="sec-items">
-      <div class="item prep" data-s="入社時オリエンテーション"><span class="item-n">入社時オリエンテーション</span><span class="item-badge">準備中</span></div>
-      <div class="item prep" data-s="基本業務の流れ"><span class="item-n">基本業務の流れ</span><span class="item-badge">準備中</span></div>
-      <div class="item prep" data-s="研修チェックリスト"><span class="item-n">研修チェックリスト</span><span class="item-badge">準備中</span></div>
-    </div>
+    <div class="detail-items" id="detailItems"></div>
   </div>
 
-  <div class="sec" data-cat>
-    <div class="sec-hd" onclick="toggle(this)">
-      <span class="sec-t">業務マニュアル・SOP</span>
-      <span class="sec-n">7</span>
-      <svg class="sec-ch" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5,3 11,8 5,13"/></svg>
-    </div>
-    <div class="sec-items">
-      <div class="item prep" data-s="調剤業務手順"><span class="item-n">調剤業務手順</span><span class="item-badge">準備中</span></div>
-      <div class="item prep" data-s="服薬指導の手順"><span class="item-n">服薬指導の手順</span><span class="item-badge">準備中</span></div>
-      <div class="item prep" data-s="在庫管理・発注"><span class="item-n">在庫管理・発注</span><span class="item-badge">準備中</span></div>
-      <div class="item prep" data-s="レセプト・会計業務"><span class="item-n">レセプト・会計業務</span><span class="item-badge">準備中</span></div>
-      <div class="item prep" data-s="レセコン操作マニュアル"><span class="item-n">レセコン操作マニュアル</span><span class="item-badge">準備中</span></div>
-      <div class="item prep" data-s="電子薬歴の使い方"><span class="item-n">電子薬歴の使い方</span><span class="item-badge">準備中</span></div>
-      <div class="item prep" data-s="分包機など機器操作"><span class="item-n">分包機など機器操作</span><span class="item-badge">準備中</span></div>
-    </div>
-  </div>
-
-  <div class="sec" data-cat>
-    <div class="sec-hd" onclick="toggle(this)">
-      <span class="sec-t">その他・共通ルール</span>
-      <span class="sec-n">2</span>
-      <svg class="sec-ch" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><polyline points="5,3 11,8 5,13"/></svg>
-    </div>
-    <div class="sec-items">
-      <div class="item prep" data-s="緊急時対応"><span class="item-n">緊急時対応</span><span class="item-badge">準備中</span></div>
-      <div class="item prep" data-s="社内ルール・規定"><span class="item-n">社内ルール・規定</span><span class="item-badge">準備中</span></div>
-    </div>
-  </div>
-
-  <div class="no-results" id="nr">該当するマニュアルがありません</div>
 </div>
 
 <script>
-function toggle(hd){
-  hd.closest('.sec').classList.toggle('shut');
-}
-const q=document.getElementById('q');
-const secs=document.querySelectorAll('[data-cat]');
-const nr=document.getElementById('nr');
-q.addEventListener('input',()=>{
-  const v=q.value.trim().toLowerCase();
-  let any=false;
-  secs.forEach(s=>{
-    const items=s.querySelectorAll('.item');
-    let found=false;
-    items.forEach(i=>{
-      const t=(i.dataset.s||'').toLowerCase();
-      const show=!v||t.includes(v);
-      i.style.display=show?'':'none';
-      if(show)found=true;
-    });
-    s.style.display=found?'':'none';
-    if(found){any=true;s.classList.remove('shut')}
+const cats = [
+  {
+    name: '申請フォーム', icon: '📋',
+    items: [
+      { name: '残業申請', icon: '⏰', href: '#' },
+      { name: '購入申請', icon: '🛒', href: '#' },
+      { name: '会社への要望・相談（ハラスメント相談含む）', icon: '💬', href: '#' }
+    ]
+  },
+  {
+    name: '新人・研修用マニュアル', icon: '📚',
+    items: [
+      { name: '入社時オリエンテーション', icon: '🏢', prep: true },
+      { name: '基本業務の流れ', icon: '📝', prep: true },
+      { name: '研修チェックリスト', icon: '✅', prep: true }
+    ]
+  },
+  {
+    name: '業務マニュアル・SOP', icon: '💊',
+    items: [
+      { name: '調剤業務手順', icon: '⚗️', prep: true },
+      { name: '服薬指導の手順', icon: '🗣️', prep: true },
+      { name: '在庫管理・発注', icon: '📦', prep: true },
+      { name: 'レセプト・会計業務', icon: '🧾', prep: true },
+      { name: 'レセコン操作マニュアル', icon: '🖥️', prep: true },
+      { name: '電子薬歴の使い方', icon: '📱', prep: true },
+      { name: '分包機など機器操作', icon: '⚙️', prep: true }
+    ]
+  },
+  {
+    name: 'その他・共通ルール', icon: '📌',
+    items: [
+      { name: '緊急時対応', icon: '🚨', prep: true },
+      { name: '社内ルール・規定', icon: '📖', prep: true }
+    ]
+  }
+];
+
+function showDetail(i) {
+  const c = cats[i];
+  document.getElementById('detailIcon').textContent = c.icon;
+  document.getElementById('detailTitle').textContent = c.name;
+  const box = document.getElementById('detailItems');
+  box.innerHTML = '';
+  c.items.forEach(it => {
+    const el = document.createElement(it.href ? 'a' : 'div');
+    el.className = 'd-item' + (it.prep ? ' prep' : '');
+    if (it.href) el.href = it.href;
+    el.innerHTML =
+      '<span class="d-item-icon">' + it.icon + '</span>' +
+      '<div class="d-item-info"><div class="d-item-name">' + it.name + '</div></div>' +
+      (it.prep ? '<span class="d-item-badge">準備中</span>' : '<span class="d-item-arr">›</span>');
+    box.appendChild(el);
   });
-  nr.style.display=any?'none':'block';
-});
+  document.getElementById('detailView').classList.add('active');
+}
+
+function hideDetail() {
+  document.getElementById('detailView').classList.remove('active');
+}
 </script>
