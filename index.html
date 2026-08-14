@@ -59,11 +59,11 @@ body{
   box-shadow:var(--shadow);
   cursor:pointer;user-select:none;
   border:1px solid var(--border);
-  transition:transform .12s,box-shadow .12s;
+  transition:transform .12s,box-shadow .12s,background .12s;
   text-decoration:none;color:inherit;
   -webkit-tap-highlight-color:transparent;
 }
-.cat-card:active{transform:scale(.97);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.cat-card:active{transform:scale(.96);background:var(--pri-light);box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .cat-icon{
   width:36px;height:36px;border-radius:8px;
   background:var(--pri-light);
@@ -112,9 +112,9 @@ body{
   box-shadow:0 1px 3px rgba(26,107,117,0.05);
   text-decoration:none;color:inherit;
   min-height:52px;
-  transition:transform .1s;
+  transition:transform .1s,background .1s;
 }
-a.d-item:active{transform:scale(.98)}
+a.d-item:active{transform:scale(.96);background:var(--pri-light)}
 .d-item.prep{opacity:.55}
 .d-item-icon{font-size:18px;flex-shrink:0;width:24px;text-align:center}
 .d-item-info{flex:1;min-width:0}
