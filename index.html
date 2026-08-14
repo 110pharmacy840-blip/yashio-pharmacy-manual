@@ -63,7 +63,7 @@ body{
   text-decoration:none;color:inherit;
   -webkit-tap-highlight-color:transparent;
 }
-.cat-card:active{transform:scale(.96);background:var(--pri-light);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.cat-card:active,.cat-card.tap{transform:scale(.96);background:var(--pri-light);box-shadow:0 1px 3px rgba(0,0,0,.08)}
 .cat-icon{
   width:36px;height:36px;border-radius:8px;
   background:var(--pri-light);
@@ -114,7 +114,8 @@ body{
   min-height:52px;
   transition:transform .1s,background .1s;
 }
-a.d-item:active{transform:scale(.96);background:var(--pri-light)}
+a.d-item:active,a.d-item.tap,.d-item.tap{transform:scale(.96);background:var(--pri-light)}
+.back-btn.tap{background:rgba(255,255,255,.3)}
 .d-item.prep{opacity:.55}
 .d-item-icon{font-size:18px;flex-shrink:0;width:24px;text-align:center}
 .d-item-info{flex:1;min-width:0}
@@ -254,4 +255,12 @@ function showDetail(i) {
 function hideDetail() {
   document.getElementById('detailView').classList.remove('active');
 }
+
+document.addEventListener('touchstart', function(e) {
+  var t = e.target.closest('.cat-card, .d-item, .back-btn');
+  if (!t) return;
+  t.classList.add('tap');
+  t.addEventListener('touchend', function rm() { t.classList.remove('tap'); t.removeEventListener('touchend', rm); }, {once: true});
+  t.addEventListener('touchcancel', function rm() { t.classList.remove('tap'); t.removeEventListener('touchcancel', rm); }, {once: true});
+}, {passive: true});
 </script>
