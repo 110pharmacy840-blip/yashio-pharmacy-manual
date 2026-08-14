@@ -198,9 +198,9 @@ const cats = [
   {
     name: '申請フォーム', icon: '📋',
     items: [
-      { name: '残業申請', icon: '⏰', href: '#' },
-      { name: '購入申請', icon: '🛒', href: '#' },
-      { name: '会社への要望・相談（ハラスメント相談含む）', icon: '💬', href: '#' }
+      { name: '残業申請', icon: '⏰', href: 'https://docs.google.com/forms/d/e/1FAIpQLSeP89kxMD33sGVL7WAAz2wAvmM5e2jbKrmSIxqwoTjDpHJ-0w/viewform' },
+      { name: '購入申請', icon: '🛒', href: 'https://docs.google.com/forms/d/e/1FAIpQLSe8nWOpjV93YNCDRhkovB52JveH6CbWrGR1c8J0u3NTpyPJhg/viewform' },
+      { name: '会社への要望・相談（ハラスメント相談含む）', icon: '💬', href: 'https://docs.google.com/forms/d/e/1FAIpQLSdLEVYpBuGnNpZ2uiU6It6xyNGO0TV_h70YQScYGV5nADSWxg/viewform' }
     ]
   },
   {
@@ -241,7 +241,7 @@ function showDetail(i) {
   c.items.forEach(it => {
     const el = document.createElement(it.href ? 'a' : 'div');
     el.className = 'd-item' + (it.prep ? ' prep' : '');
-    if (it.href) el.href = it.href;
+    if (it.href) { el.href = it.href; el.target = '_blank'; el.rel = 'noopener'; }
     el.innerHTML =
       '<span class="d-item-icon">' + it.icon + '</span>' +
       '<div class="d-item-info"><div class="d-item-name">' + it.name + '</div></div>' +
