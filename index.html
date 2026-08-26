@@ -130,6 +130,41 @@ a.d-item:active,a.d-item.tap,.d-item.tap{transform:scale(.96);background:var(--p
   font-size:14px;color:var(--pri);flex-shrink:0;font-weight:700;
 }
 
+/* ===== Search ===== */
+.search-wrap{
+  padding:8px 10px 2px;
+}
+.search-box{
+  display:flex;align-items:center;gap:8px;
+  background:var(--card);border-radius:10px;
+  border:1px solid var(--border);
+  padding:8px 12px;
+  box-shadow:var(--shadow);
+}
+.search-box svg{width:16px;height:16px;color:var(--text2);flex-shrink:0}
+.search-input{
+  border:none;outline:none;background:transparent;
+  font-size:14px;color:var(--text);width:100%;
+  font-family:inherit;
+}
+.search-input::placeholder{color:var(--muted)}
+.search-clear{
+  border:none;background:var(--muted-bg);color:var(--text2);
+  width:20px;height:20px;border-radius:50%;
+  font-size:12px;cursor:pointer;flex-shrink:0;
+  display:none;align-items:center;justify-content:center;
+  line-height:1;
+}
+.search-clear.show{display:flex}
+#searchResults .sr-cat{
+  font-size:11px;color:var(--text2);padding:8px 4px 4px;font-weight:600;
+}
+#searchResults .d-item{margin-bottom:6px}
+.no-results{
+  text-align:center;color:var(--muted);
+  font-size:13px;padding:32px 0;
+}
+
 @media(prefers-reduced-motion:reduce){
   *{transition:none!important}
 }
@@ -143,7 +178,16 @@ a.d-item:active,a.d-item.tap,.d-item.tap{transform:scale(.96);background:var(--p
       <div class="hdr-title">マニュアルホーム</div>
       <div class="hdr-sub">薬局スタッフ用 マニュアル一覧</div>
     </div>
+    <div class="search-wrap">
+      <div class="search-box">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="13" y1="13" x2="18" y2="18"/></svg>
+        <input class="search-input" id="searchInput" type="text" placeholder="キーワードで検索…">
+        <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+      </div>
+    </div>
     <div class="main">
+      <div id="searchResults" style="display:none"></div>
+      <div id="catList">
 
       <div class="cat-card" onclick="showDetail(0)">
         <div class="cat-icon">📋</div>
@@ -208,6 +252,7 @@ a.d-item:active,a.d-item.tap,.d-item.tap{transform:scale(.96);background:var(--p
         <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
       </div>
 
+    </div>
     </div>
   </div>
 
@@ -310,6 +355,59 @@ function showDetail(i) {
 
 function hideDetail() {
   document.getElementById('detailView').classList.remove('active');
+}
+
+// Search
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+const catList = document.getElementById('catList');
+const searchClear = document.getElementById('searchClear');
+
+searchInput.addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  searchClear.classList.toggle('show', q.length > 0);
+  if (!q) {
+    searchResults.style.display = 'none';
+    catList.style.display = 'block';
+    return;
+  }
+  catList.style.display = 'none';
+  searchResults.style.display = 'block';
+  searchResults.innerHTML = '';
+  let found = 0;
+  cats.forEach(function(c) {
+    const matches = c.items.filter(function(it) {
+      return it.name.toLowerCase().indexOf(q) !== -1 ||
+             c.name.toLowerCase().indexOf(q) !== -1;
+    });
+    if (matches.length === 0) return;
+    const label = document.createElement('div');
+    label.className = 'sr-cat';
+    label.textContent = c.icon + ' ' + c.name;
+    searchResults.appendChild(label);
+    matches.forEach(function(it) {
+      const el = document.createElement(it.href ? 'a' : 'div');
+      el.className = 'd-item' + (it.prep ? ' prep' : '');
+      if (it.href) { el.href = it.href; el.target = '_blank'; el.rel = 'noopener'; }
+      el.innerHTML =
+        '<span class="d-item-icon">' + it.icon + '</span>' +
+        '<div class="d-item-info"><div class="d-item-name">' + it.name + '</div></div>' +
+        (it.prep ? '<span class="d-item-badge">準備中</span>' : '<span class="d-item-arr">›</span>');
+      searchResults.appendChild(el);
+      found++;
+    });
+  });
+  if (found === 0) {
+    searchResults.innerHTML = '<div class="no-results">該当する項目がありません</div>';
+  }
+});
+
+function clearSearch() {
+  searchInput.value = '';
+  searchClear.classList.remove('show');
+  searchResults.style.display = 'none';
+  catList.style.display = 'block';
+  searchInput.focus();
 }
 
 document.addEventListener('touchstart', function(e) {
