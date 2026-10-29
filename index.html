@@ -1,0 +1,420 @@
+<title>マニュアルホーム</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<style>
+:root {
+  --pri: #1a6b75;
+  --pri-light: #e3f2f4;
+  --pri-hover: #15575f;
+  --surface: #f5f9fa;
+  --card: #ffffff;
+  --text: #1b2c32;
+  --text2: #6b7f87;
+  --muted: #97a5ac;
+  --muted-bg: #edf0f1;
+  --border: #d5e0e3;
+  --hdr-a: #1a6b75;
+  --hdr-b: #2a8690;
+  --shadow: 0 2px 8px rgba(26,107,117,0.10);
+}
+@media(prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --pri:#5cc4d0;--pri-light:#152c31;--pri-hover:#4aa8b3;
+    --surface:#0b181c;--card:#12252b;--text:#cde0e5;
+    --text2:#6a8590;--muted:#3f5860;--muted-bg:#182a30;
+    --border:#243a42;--hdr-a:#0e3a42;--hdr-b:#175560;
+    --shadow:0 2px 8px rgba(0,0,0,0.25);
+  }
+}
+:root[data-theme="dark"]{
+  --pri:#5cc4d0;--pri-light:#152c31;--pri-hover:#4aa8b3;
+  --surface:#0b181c;--card:#12252b;--text:#cde0e5;
+  --text2:#6a8590;--muted:#3f5860;--muted-bg:#182a30;
+  --border:#243a42;--hdr-a:#0e3a42;--hdr-b:#175560;
+  --shadow:0 2px 8px rgba(0,0,0,0.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",sans-serif;
+  background:var(--surface);color:var(--text);
+  max-width:480px;margin:0 auto;height:100dvh;
+  -webkit-text-size-adjust:100%;
+  -webkit-tap-highlight-color:transparent;
+  overflow:hidden;
+}
+#app{position:relative;overflow:hidden;height:100dvh}
+#mainView{display:flex;flex-direction:column;height:100%}
+.hdr{
+  background:linear-gradient(135deg,var(--hdr-a),var(--hdr-b));
+  color:#fff;padding:10px 14px 8px;
+}
+.hdr-title{font-size:15px;font-weight:700;letter-spacing:.02em}
+.hdr-sub{font-size:10px;opacity:.75;margin-top:1px}
+
+/* ===== Main View ===== */
+.main{padding:6px 10px 10px;overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
+.cat-card{
+  display:flex;align-items:center;gap:10px;
+  background:var(--card);border-radius:10px;
+  padding:12px 12px;margin-bottom:6px;
+  box-shadow:var(--shadow);
+  cursor:pointer;user-select:none;
+  border:1px solid var(--border);
+  transition:transform .12s,box-shadow .12s,background .12s;
+  text-decoration:none;color:inherit;
+  -webkit-tap-highlight-color:transparent;
+}
+.cat-card:active,.cat-card.tap{transform:scale(.96);background:var(--pri-light);box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.cat-icon{
+  width:36px;height:36px;border-radius:8px;
+  background:var(--pri-light);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:18px;
+}
+.cat-info{flex:1;min-width:0}
+.cat-name{font-size:15px;font-weight:700;color:var(--text)}
+.cat-count{font-size:11px;color:var(--text2);margin-top:1px}
+.cat-arrow{
+  width:20px;height:20px;color:var(--text2);flex-shrink:0;
+}
+
+/* ===== Detail View ===== */
+.detail{
+  position:absolute;top:0;left:0;width:100%;height:100dvh;
+  background:var(--surface);
+  transform:translateX(100%);
+  transition:transform .25s ease;
+  z-index:10;
+  display:flex;flex-direction:column;
+}
+.detail.active{transform:translateX(0)}
+
+.detail-hdr{
+  background:linear-gradient(135deg,var(--hdr-a),var(--hdr-b));
+  color:#fff;padding:12px 14px;
+  display:flex;align-items:center;gap:10px;
+}
+.back-btn{
+  width:36px;height:36px;border-radius:8px;
+  background:rgba(255,255,255,.15);border:none;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  cursor:pointer;flex-shrink:0;font-size:20px;
+  -webkit-tap-highlight-color:transparent;
+}
+.back-btn:active{background:rgba(255,255,255,.25)}
+.detail-title{font-size:17px;font-weight:700}
+.detail-icon{font-size:20px}
+
+.detail-items{padding:12px 14px;overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
+.d-item{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;margin-bottom:8px;
+  background:var(--card);border-radius:10px;
+  border:1px solid var(--border);
+  box-shadow:0 1px 3px rgba(26,107,117,0.05);
+  text-decoration:none;color:inherit;
+  min-height:52px;
+  transition:transform .1s,background .1s;
+}
+a.d-item:active,a.d-item.tap,.d-item.tap{transform:scale(.96);background:var(--pri-light)}
+.back-btn.tap{background:rgba(255,255,255,.3)}
+.d-item.prep{opacity:.55}
+.d-item-icon{font-size:18px;flex-shrink:0;width:24px;text-align:center}
+.d-item-info{flex:1;min-width:0}
+.d-item-name{font-size:15px;font-weight:500}
+.d-item-badge{
+  font-size:11px;padding:2px 8px;border-radius:6px;
+  background:var(--muted-bg);color:var(--muted);flex-shrink:0;
+}
+.d-item-arr{
+  font-size:14px;color:var(--pri);flex-shrink:0;font-weight:700;
+}
+
+/* ===== Search ===== */
+.search-wrap{
+  padding:8px 10px 2px;
+}
+.search-box{
+  display:flex;align-items:center;gap:8px;
+  background:var(--card);border-radius:10px;
+  border:1px solid var(--border);
+  padding:8px 12px;
+  box-shadow:var(--shadow);
+}
+.search-box svg{width:16px;height:16px;color:var(--text2);flex-shrink:0}
+.search-input{
+  border:none;outline:none;background:transparent;
+  font-size:14px;color:var(--text);width:100%;
+  font-family:inherit;
+}
+.search-input::placeholder{color:var(--muted)}
+.search-clear{
+  border:none;background:var(--muted-bg);color:var(--text2);
+  width:20px;height:20px;border-radius:50%;
+  font-size:12px;cursor:pointer;flex-shrink:0;
+  display:none;align-items:center;justify-content:center;
+  line-height:1;
+}
+.search-clear.show{display:flex}
+#searchResults .sr-cat{
+  font-size:11px;color:var(--text2);padding:8px 4px 4px;font-weight:600;
+}
+#searchResults .d-item{margin-bottom:6px}
+.no-results{
+  text-align:center;color:var(--muted);
+  font-size:13px;padding:32px 0;
+}
+
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+</style>
+
+<div id="app">
+
+  <!-- Main View -->
+  <div id="mainView">
+    <div class="hdr">
+      <div class="hdr-title">マニュアルホーム</div>
+      <div class="hdr-sub">薬局スタッフ用 マニュアル一覧</div>
+    </div>
+    <div class="search-wrap">
+      <div class="search-box">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="13" y1="13" x2="18" y2="18"/></svg>
+        <input class="search-input" id="searchInput" type="text" placeholder="キーワードで検索…">
+        <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
+      </div>
+    </div>
+    <div class="main">
+      <div id="searchResults" style="display:none"></div>
+      <div id="catList">
+
+      <div class="cat-card" onclick="showDetail(0)">
+        <div class="cat-icon">📋</div>
+        <div class="cat-info">
+          <div class="cat-name">申請フォーム</div>
+          <div class="cat-count">3件のフォーム</div>
+        </div>
+        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
+      </div>
+
+      <div class="cat-card" onclick="showDetail(1)">
+        <div class="cat-icon">📚</div>
+        <div class="cat-info">
+          <div class="cat-name">新人・研修用マニュアル</div>
+          <div class="cat-count">3件のマニュアル</div>
+        </div>
+        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
+      </div>
+
+      <div class="cat-card" onclick="showDetail(2)">
+        <div class="cat-icon">💊</div>
+        <div class="cat-info">
+          <div class="cat-name">業務マニュアル・SOP</div>
+          <div class="cat-count">7件のマニュアル</div>
+        </div>
+        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
+      </div>
+
+      <div class="cat-card" onclick="showDetail(3)">
+        <div class="cat-icon">📌</div>
+        <div class="cat-info">
+          <div class="cat-name">その他・共通ルール</div>
+          <div class="cat-count">2件のルール</div>
+        </div>
+        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
+      </div>
+
+      <div class="cat-card" onclick="showDetail(4)">
+        <div class="cat-icon">🔧</div>
+        <div class="cat-info">
+          <div class="cat-name">トラブル対応・メンテナンス業務</div>
+          <div class="cat-count">6件のマニュアル</div>
+        </div>
+        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
+      </div>
+
+      <div class="cat-card" onclick="showDetail(5)">
+        <div class="cat-icon">🏥</div>
+        <div class="cat-info">
+          <div class="cat-name">患者配布物</div>
+          <div class="cat-count">患者さん向け資料</div>
+        </div>
+        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
+      </div>
+
+      <div class="cat-card" onclick="showDetail(6)">
+        <div class="cat-icon">🗄️</div>
+        <div class="cat-info">
+          <div class="cat-name">データ保管</div>
+          <div class="cat-count">書類・テンプレート</div>
+        </div>
+        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
+      </div>
+
+    </div>
+    </div>
+  </div>
+
+  <!-- Detail View -->
+  <div class="detail" id="detailView">
+    <div class="detail-hdr">
+      <button class="back-btn" onclick="hideDetail()">←</button>
+      <span class="detail-icon" id="detailIcon"></span>
+      <span class="detail-title" id="detailTitle"></span>
+    </div>
+    <div class="detail-items" id="detailItems"></div>
+  </div>
+
+</div>
+
+<script>
+const cats = [
+  {
+    name: '申請フォーム', icon: '📋',
+    items: [
+      { name: '残業申請', icon: '⏰', href: 'https://docs.google.com/forms/d/e/1FAIpQLSeP89kxMD33sGVL7WAAz2wAvmM5e2jbKrmSIxqwoTjDpHJ-0w/viewform' },
+      { name: '購入申請', icon: '🛒', href: 'https://docs.google.com/forms/d/e/1FAIpQLSe8nWOpjV93YNCDRhkovB52JveH6CbWrGR1c8J0u3NTpyPJhg/viewform' },
+      { name: '会社への要望・相談（ハラスメント相談含む）', icon: '💬', href: 'https://docs.google.com/forms/d/e/1FAIpQLSdLEVYpBuGnNpZ2uiU6It6xyNGO0TV_h70YQScYGV5nADSWxg/viewform' }
+    ]
+  },
+  {
+    name: '新人・研修用マニュアル', icon: '📚',
+    items: [
+      { name: '入社時オリエンテーション', icon: '🏢', prep: true },
+      { name: '基本業務の流れ', icon: '📝', prep: true },
+      { name: '研修チェックリスト', icon: '✅', prep: true }
+    ]
+  },
+  {
+    name: '業務マニュアル・SOP', icon: '💊',
+    items: [
+      { name: '調剤業務手順', icon: '⚗️', prep: true },
+      { name: '服薬指導の手順', icon: '🗣️', prep: true },
+      { name: '在庫管理・発注', icon: '📦', prep: true },
+      { name: 'レセプト・会計業務', icon: '🧾', prep: true },
+      { name: 'レセコン操作マニュアル', icon: '🖥️', prep: true },
+      { name: '電子薬歴の使い方', icon: '📱', prep: true },
+      { name: '分包機など機器操作', icon: '⚙️', prep: true }
+    ]
+  },
+  {
+    name: 'その他・共通ルール', icon: '📌',
+    items: [
+      { name: '緊急時対応', icon: '🚨', prep: true },
+      { name: '社内ルール・規定', icon: '📖', prep: true }
+    ]
+  },
+  {
+    name: 'トラブル対応・メンテナンス業務', icon: '🔧',
+    items: [
+      { name: 'proofitラベル交換', icon: '🏷️', href: 'proofit-label.html' },
+      { name: '機器エラー復旧手順', icon: '🖥️', prep: true },
+      { name: 'GooCo薬歴飛ばない', icon: '📡', href: 'gooco-yakureki.html' },
+      { name: '新患マスタ紐づけトラブルの対処法', icon: '🔗', prep: true },
+      { name: '日次メンテナンス業務', icon: '🧹', prep: true },
+      { name: '月次メンテナンス業務', icon: '📅', prep: true }
+    ]
+  },
+  {
+    name: '患者配布物', icon: '🏥',
+    items: [
+      { name: 'お薬手帳の使い方', icon: '📒', prep: true },
+      { name: '服用方法の説明書', icon: '💊', prep: true },
+      { name: 'ジェネリック医薬品のご案内', icon: '📄', prep: true }
+    ]
+  },
+  {
+    name: 'データ保管', icon: '🗄️',
+    items: [
+      { name: '各種テンプレート', icon: '📝', prep: true },
+      { name: '届出書類', icon: '📋', prep: true },
+      { name: '研修記録', icon: '✅', prep: true }
+    ]
+  }
+];
+
+function showDetail(i) {
+  const c = cats[i];
+  document.getElementById('detailIcon').textContent = c.icon;
+  document.getElementById('detailTitle').textContent = c.name;
+  const box = document.getElementById('detailItems');
+  box.innerHTML = '';
+  c.items.forEach(it => {
+    const el = document.createElement(it.href ? 'a' : 'div');
+    el.className = 'd-item' + (it.prep ? ' prep' : '');
+    if (it.href) { el.href = it.href; el.target = '_blank'; el.rel = 'noopener'; }
+    el.innerHTML =
+      '<span class="d-item-icon">' + it.icon + '</span>' +
+      '<div class="d-item-info"><div class="d-item-name">' + it.name + '</div></div>' +
+      (it.prep ? '<span class="d-item-badge">準備中</span>' : '<span class="d-item-arr">›</span>');
+    box.appendChild(el);
+  });
+  document.getElementById('detailView').classList.add('active');
+}
+
+function hideDetail() {
+  document.getElementById('detailView').classList.remove('active');
+}
+
+// Search
+const searchInput = document.getElementById('searchInput');
+const searchResults = document.getElementById('searchResults');
+const catList = document.getElementById('catList');
+const searchClear = document.getElementById('searchClear');
+
+searchInput.addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  searchClear.classList.toggle('show', q.length > 0);
+  if (!q) {
+    searchResults.style.display = 'none';
+    catList.style.display = 'block';
+    return;
+  }
+  catList.style.display = 'none';
+  searchResults.style.display = 'block';
+  searchResults.innerHTML = '';
+  let found = 0;
+  cats.forEach(function(c) {
+    const matches = c.items.filter(function(it) {
+      return it.name.toLowerCase().indexOf(q) !== -1 ||
+             c.name.toLowerCase().indexOf(q) !== -1;
+    });
+    if (matches.length === 0) return;
+    const label = document.createElement('div');
+    label.className = 'sr-cat';
+    label.textContent = c.icon + ' ' + c.name;
+    searchResults.appendChild(label);
+    matches.forEach(function(it) {
+      const el = document.createElement(it.href ? 'a' : 'div');
+      el.className = 'd-item' + (it.prep ? ' prep' : '');
+      if (it.href) { el.href = it.href; el.target = '_blank'; el.rel = 'noopener'; }
+      el.innerHTML =
+        '<span class="d-item-icon">' + it.icon + '</span>' +
+        '<div class="d-item-info"><div class="d-item-name">' + it.name + '</div></div>' +
+        (it.prep ? '<span class="d-item-badge">準備中</span>' : '<span class="d-item-arr">›</span>');
+      searchResults.appendChild(el);
+      found++;
+    });
+  });
+  if (found === 0) {
+    searchResults.innerHTML = '<div class="no-results">該当する項目がありません</div>';
+  }
+});
+
+function clearSearch() {
+  searchInput.value = '';
+  searchClear.classList.remove('show');
+  searchResults.style.display = 'none';
+  catList.style.display = 'block';
+  searchInput.focus();
+}
+
+document.addEventListener('touchstart', function(e) {
+  var t = e.target.closest('.cat-card, .d-item, .back-btn');
+  if (!t) return;
+  t.classList.add('tap');
+  t.addEventListener('touchend', function rm() { t.classList.remove('tap'); t.removeEventListener('touchend', rm); }, {once: true});
+  t.addEventListener('touchcancel', function rm() { t.classList.remove('tap'); t.removeEventListener('touchcancel', rm); }, {once: true});
+}, {passive: true});
+</script>
