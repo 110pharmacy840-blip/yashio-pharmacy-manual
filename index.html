@@ -1,420 +1,803 @@
-<title>マニュアルホーム</title>
+<!doctype html>
+<html lang="ja">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#284a7e" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1b2a45" media="(prefers-color-scheme: dark)">
+<title>マニュアルポータル｜イトー寿薬局・やしお薬局</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&family=Zen+Kaku+Gothic+New:wght@500;700&display=swap">
 <style>
-:root {
-  --pri: #1a6b75;
-  --pri-light: #e3f2f4;
-  --pri-hover: #15575f;
-  --surface: #f5f9fa;
-  --card: #ffffff;
-  --text: #1b2c32;
-  --text2: #6b7f87;
-  --muted: #97a5ac;
-  --muted-bg: #edf0f1;
-  --border: #d5e0e3;
-  --hdr-a: #1a6b75;
-  --hdr-b: #2a8690;
-  --shadow: 0 2px 8px rgba(26,107,117,0.10);
+/* 配色：藍（ネイビー）。アプリ風・下タブのレイアウト */
+:root{
+  --pri:#284a7e; --pri-ink:#ffffff; --soft:#e3e9f4; --bar:#284a7e; --bar-ink:#ffffff;
+  --acc:#cf6a2e; --acc-soft:#fbe9de;
+  --bg:#f4f6fa; --sf:#ffffff; --ink:#1a2233; --ink2:#5d6779; --line:#d7deea;
+  --danger:#b3261e; --danger-soft:#fbe4e2;
+  --f-head:"Zen Kaku Gothic New","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",sans-serif;
+  --f-body:"BIZ UDPGothic","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",sans-serif;
+  --r:12px;
+  color-scheme:light;
 }
-@media(prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --pri:#5cc4d0;--pri-light:#152c31;--pri-hover:#4aa8b3;
-    --surface:#0b181c;--card:#12252b;--text:#cde0e5;
-    --text2:#6a8590;--muted:#3f5860;--muted-bg:#182a30;
-    --border:#243a42;--hdr-a:#0e3a42;--hdr-b:#175560;
-    --shadow:0 2px 8px rgba(0,0,0,0.25);
-  }
-}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --pri:#86aef0; --pri-ink:#0d121c; --soft:#1a2740; --bar:#1b2a45; --bar-ink:#e3ebf8;
+  --acc:#f0965e; --acc-soft:#3d2818;
+  --bg:#0d121c; --sf:#151d2c; --ink:#d6deeb; --ink2:#8d99ad; --line:#28344a;
+  --danger:#f2867d; --danger-soft:#3d1b19; color-scheme:dark}}
 :root[data-theme="dark"]{
-  --pri:#5cc4d0;--pri-light:#152c31;--pri-hover:#4aa8b3;
-  --surface:#0b181c;--card:#12252b;--text:#cde0e5;
-  --text2:#6a8590;--muted:#3f5860;--muted-bg:#182a30;
-  --border:#243a42;--hdr-a:#0e3a42;--hdr-b:#175560;
-  --shadow:0 2px 8px rgba(0,0,0,0.25);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  font-family:-apple-system,"Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",sans-serif;
-  background:var(--surface);color:var(--text);
-  max-width:480px;margin:0 auto;height:100dvh;
-  -webkit-text-size-adjust:100%;
-  -webkit-tap-highlight-color:transparent;
-  overflow:hidden;
-}
-#app{position:relative;overflow:hidden;height:100dvh}
-#mainView{display:flex;flex-direction:column;height:100%}
-.hdr{
-  background:linear-gradient(135deg,var(--hdr-a),var(--hdr-b));
-  color:#fff;padding:10px 14px 8px;
-}
-.hdr-title{font-size:15px;font-weight:700;letter-spacing:.02em}
-.hdr-sub{font-size:10px;opacity:.75;margin-top:1px}
+  --pri:#86aef0; --pri-ink:#0d121c; --soft:#1a2740; --bar:#1b2a45; --bar-ink:#e3ebf8;
+  --acc:#f0965e; --acc-soft:#3d2818;
+  --bg:#0d121c; --sf:#151d2c; --ink:#d6deeb; --ink2:#8d99ad; --line:#28344a;
+  --danger:#f2867d; --danger-soft:#3d1b19; color-scheme:dark}
 
-/* ===== Main View ===== */
-.main{padding:6px 10px 10px;overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
-.cat-card{
-  display:flex;align-items:center;gap:10px;
-  background:var(--card);border-radius:10px;
-  padding:12px 12px;margin-bottom:6px;
-  box-shadow:var(--shadow);
-  cursor:pointer;user-select:none;
-  border:1px solid var(--border);
-  transition:transform .12s,box-shadow .12s,background .12s;
-  text-decoration:none;color:inherit;
-  -webkit-tap-highlight-color:transparent;
-}
-.cat-card:active,.cat-card.tap{transform:scale(.96);background:var(--pri-light);box-shadow:0 1px 3px rgba(0,0,0,.08)}
-.cat-icon{
-  width:36px;height:36px;border-radius:8px;
-  background:var(--pri-light);
-  display:flex;align-items:center;justify-content:center;
-  flex-shrink:0;font-size:18px;
-}
-.cat-info{flex:1;min-width:0}
-.cat-name{font-size:15px;font-weight:700;color:var(--text)}
-.cat-count{font-size:11px;color:var(--text2);margin-top:1px}
-.cat-arrow{
-  width:20px;height:20px;color:var(--text2);flex-shrink:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.7;-webkit-text-size-adjust:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+a{color:var(--pri)}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:6px}
+[hidden]{display:none!important}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-/* ===== Detail View ===== */
-.detail{
-  position:absolute;top:0;left:0;width:100%;height:100dvh;
-  background:var(--surface);
-  transform:translateX(100%);
-  transition:transform .25s ease;
-  z-index:10;
-  display:flex;flex-direction:column;
-}
-.detail.active{transform:translateX(0)}
+.app{max-width:560px;margin:0 auto;min-height:100%;display:flex;flex-direction:column;background:var(--bg)}
+.appbar{position:sticky;top:0;z-index:20;background:var(--bar);color:var(--bar-ink);
+  padding:calc(env(safe-area-inset-top,0px) + 12px) max(16px,env(safe-area-inset-right,0px)) 14px max(16px,env(safe-area-inset-left,0px));
+  display:flex;align-items:center;gap:10px;min-height:60px}
+.appbar .back{width:36px;height:36px;margin-left:-8px;border-radius:50%;display:grid;place-items:center;color:inherit;flex:none}
+.appbar .back:active{background:rgba(255,255,255,.15)}
+.appbar .tt{min-width:0;flex:1}
+.appbar h1{font-family:var(--f-head);font-weight:700;font-size:17px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.appbar .sub{font-size:11.5px;opacity:.85}
 
-.detail-hdr{
-  background:linear-gradient(135deg,var(--hdr-a),var(--hdr-b));
-  color:#fff;padding:12px 14px;
-  display:flex;align-items:center;gap:10px;
-}
-.back-btn{
-  width:36px;height:36px;border-radius:8px;
-  background:rgba(255,255,255,.15);border:none;color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  cursor:pointer;flex-shrink:0;font-size:20px;
-  -webkit-tap-highlight-color:transparent;
-}
-.back-btn:active{background:rgba(255,255,255,.25)}
-.detail-title{font-size:17px;font-weight:700}
-.detail-icon{font-size:20px}
+.banner{margin:12px max(16px,env(safe-area-inset-right,0px)) 0 max(16px,env(safe-area-inset-left,0px));padding:10px 12px;border-radius:10px;background:var(--acc-soft);font-size:13px;line-height:1.6}
+main{flex:1;padding:14px max(16px,env(safe-area-inset-right,0px)) calc(88px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:14px}
+main.no-tabs{padding-bottom:calc(32px + env(safe-area-inset-bottom,0px))}
 
-.detail-items{padding:12px 14px;overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
-.d-item{
-  display:flex;align-items:center;gap:12px;
-  padding:14px 16px;margin-bottom:8px;
-  background:var(--card);border-radius:10px;
-  border:1px solid var(--border);
-  box-shadow:0 1px 3px rgba(26,107,117,0.05);
-  text-decoration:none;color:inherit;
-  min-height:52px;
-  transition:transform .1s,background .1s;
-}
-a.d-item:active,a.d-item.tap,.d-item.tap{transform:scale(.96);background:var(--pri-light)}
-.back-btn.tap{background:rgba(255,255,255,.3)}
-.d-item.prep{opacity:.55}
-.d-item-icon{font-size:18px;flex-shrink:0;width:24px;text-align:center}
-.d-item-info{flex:1;min-width:0}
-.d-item-name{font-size:15px;font-weight:500}
-.d-item-badge{
-  font-size:11px;padding:2px 8px;border-radius:6px;
-  background:var(--muted-bg);color:var(--muted);flex-shrink:0;
-}
-.d-item-arr{
-  font-size:14px;color:var(--pri);flex-shrink:0;font-weight:700;
-}
+.tabs{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--sf);border-top:1px solid var(--line);
+  padding:6px max(8px,env(safe-area-inset-right,0px)) calc(6px + env(safe-area-inset-bottom,0px)) max(8px,env(safe-area-inset-left,0px))}
+.tabs-in{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr)}
+.tab{text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;font-size:11px;color:var(--ink2);border-radius:10px}
+.tab svg{width:24px;height:24px}
+.tab[aria-current="page"]{color:var(--pri);font-weight:700}
 
-/* ===== Search ===== */
-.search-wrap{
-  padding:8px 10px 2px;
-}
-.search-box{
-  display:flex;align-items:center;gap:8px;
-  background:var(--card);border-radius:10px;
-  border:1px solid var(--border);
-  padding:8px 12px;
-  box-shadow:var(--shadow);
-}
-.search-box svg{width:16px;height:16px;color:var(--text2);flex-shrink:0}
-.search-input{
-  border:none;outline:none;background:transparent;
-  font-size:14px;color:var(--text);width:100%;
-  font-family:inherit;
-}
-.search-input::placeholder{color:var(--muted)}
-.search-clear{
-  border:none;background:var(--muted-bg);color:var(--text2);
-  width:20px;height:20px;border-radius:50%;
-  font-size:12px;cursor:pointer;flex-shrink:0;
-  display:none;align-items:center;justify-content:center;
-  line-height:1;
-}
-.search-clear.show{display:flex}
-#searchResults .sr-cat{
-  font-size:11px;color:var(--text2);padding:8px 4px 4px;font-weight:600;
-}
-#searchResults .d-item{margin-bottom:6px}
-.no-results{
-  text-align:center;color:var(--muted);
-  font-size:13px;padding:32px 0;
-}
+.sec{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-family:var(--f-head);font-weight:700;font-size:13px;color:var(--ink2);letter-spacing:.04em;margin-top:4px}
+.sec .star{color:var(--acc)}
+.sec button{font-family:var(--f-body);font-weight:400;font-size:12.5px;color:var(--pri);letter-spacing:0}
 
-@media(prefers-reduced-motion:reduce){
-  *{transition:none!important}
-}
+.search{display:flex;align-items:center;gap:8px;background:var(--sf);border:1px solid var(--line);border-radius:var(--r);padding:0 12px}
+.search:focus-within{border-color:var(--pri);box-shadow:0 0 0 2px var(--soft)}
+.search svg{width:20px;height:20px;color:var(--ink2);flex:none}
+.search input{flex:1;min-width:0;border:0;background:none;padding:12px 0;font-size:16px;outline:none}
+.search .clear{width:28px;height:28px;border-radius:50%;color:var(--ink2);font-size:16px}
+
+.hello{background:var(--soft);border-radius:var(--r);padding:12px 14px;display:flex;align-items:center;gap:10px}
+.hello .t{flex:1;min-width:0}
+.hello b{font-family:var(--f-head);color:var(--pri);font-size:16px}
+.hello small{display:block;font-size:12px;color:var(--ink2)}
+.link-btn{color:var(--pri);font-size:13px;font-weight:700;padding:6px 4px;flex:none}
+
+.favs{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fav{background:var(--sf);border:1px solid var(--line);border-radius:var(--r);padding:10px 12px;display:flex;flex-direction:column;gap:6px;text-align:left;min-width:0}
+.fav .n{font-size:14px;line-height:1.45;word-break:break-word}
+
+.list{background:var(--sf);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.row{display:flex;align-items:center;gap:10px;padding:11px 12px;border-top:1px solid var(--line);width:100%;text-align:left;text-decoration:none;color:inherit;min-height:52px}
+.row:first-child{border-top:0}
+.row:active{background:var(--soft)}
+.row .n{flex:1;min-width:0;line-height:1.45}
+.row .n .ex{display:block;font-size:12.5px;color:var(--ink2);margin-top:2px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.row .m{font-size:12px;color:var(--ink2);flex:none;font-variant-numeric:tabular-nums}
+.row .chev{color:var(--ink2);flex:none;width:16px;height:16px}
+.ic{width:34px;height:34px;border-radius:9px;background:var(--soft);display:grid;place-items:center;font-size:17px;flex:none}
+.chip{font-size:11px;font-weight:700;padding:1px 7px;border-radius:6px;flex:none}
+.chip.new{background:var(--acc-soft);color:var(--acc)}
+.chip.prep{background:var(--line);color:var(--ink2);font-weight:400}
+.fstar{color:var(--acc);flex:none}
+mark{background:var(--acc-soft);color:inherit;border-radius:3px;padding:0 1px}
+
+.cat{background:var(--sf);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+.cat-h{display:flex;align-items:center;gap:10px;width:100%;padding:12px;text-align:left;min-height:58px}
+.cat-h .n{flex:1;font-family:var(--f-head);font-weight:700;font-size:15px;line-height:1.4}
+.cat-h .c{font-size:12px;color:var(--ink2)}
+.cat-h svg{width:18px;height:18px;color:var(--ink2);transition:transform .2s;flex:none}
+.cat.open .cat-h{background:var(--soft)}
+.cat.open .cat-h svg{transform:rotate(180deg)}
+.cat .row{padding-left:16px}
+.cat .add-in{display:block;width:100%;padding:11px 16px;border-top:1px solid var(--line);text-align:left;color:var(--pri);font-size:13.5px;font-weight:700}
+
+.empty{background:var(--sf);border:1px dashed var(--line);border-radius:var(--r);padding:18px 16px;color:var(--ink2);font-size:14px;text-align:center;line-height:1.7}
+.hint{font-size:12.5px;color:var(--ink2)}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:46px;padding:0 18px;border-radius:var(--r);font-weight:700;font-size:15px;border:1px solid var(--pri);color:var(--pri);background:var(--sf);text-decoration:none}
+.btn.pri{background:var(--pri);color:var(--pri-ink)}
+.btn.danger{border-color:var(--danger);color:var(--danger)}
+.btn.danger.fill{background:var(--danger);color:#fff}
+.btn:disabled{opacity:.55;cursor:default}
+.btn.on{background:var(--acc-soft);border-color:var(--acc);color:var(--acc)}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btn.wide{width:100%}
+
+/* マニュアル本文 */
+.meta{font-size:12.5px;color:var(--ink2);display:flex;flex-wrap:wrap;gap:4px 12px}
+.doc{display:flex;flex-direction:column;gap:12px;font-size:16px;line-height:1.8;word-break:break-word}
+.doc h3{font-family:var(--f-head);font-size:17px;font-weight:700;margin-top:8px;padding-bottom:4px;border-bottom:2px solid var(--soft)}
+.doc .steps{display:flex;flex-direction:column;gap:8px}
+.doc .step{display:flex;gap:10px;background:var(--sf);border:1px solid var(--line);border-radius:var(--r);padding:12px}
+.doc .step .no{flex:none;width:26px;height:26px;border-radius:50%;background:var(--pri);color:var(--pri-ink);display:grid;place-items:center;font-weight:700;font-size:14px;margin-top:1px;font-variant-numeric:tabular-nums}
+.doc .step .tx{min-width:0;flex:1}
+.doc ul{padding-left:1.3em;display:flex;flex-direction:column;gap:4px}
+.doc .note{background:var(--acc-soft);border-radius:var(--r);padding:12px 14px;display:flex;gap:8px}
+.doc .note::before{content:"⚠";flex:none}
+.doc .video{border-radius:var(--r);overflow:hidden;background:#000;border:1px solid var(--line)}
+.doc .video .fr{position:relative;width:100%;max-width:100%;aspect-ratio:16/9}
+.doc .video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.doc .video a{display:block;padding:8px 12px;background:var(--sf);font-size:13px}
+.doc a{word-break:break-all}
+.prep-box{background:var(--sf);border:1px dashed var(--line);border-radius:var(--r);padding:20px 16px;text-align:center;color:var(--ink2);display:flex;flex-direction:column;gap:12px;align-items:center}
+
+/* 編集画面 */
+.field{display:flex;flex-direction:column;gap:6px}
+.field label,.field .lb{font-weight:700;font-size:13.5px}
+.inp{width:100%;background:var(--sf);border:1px solid var(--line);border-radius:10px;padding:11px 12px;font-size:16px}
+.inp:focus{outline:none;border-color:var(--pri);box-shadow:0 0 0 2px var(--soft)}
+textarea.inp{min-height:300px;line-height:1.7;resize:vertical}
+.icon-row{display:flex;gap:8px;align-items:center}
+.icon-row .inp{width:72px;text-align:center;font-size:20px;padding:8px}
+.picks{display:flex;gap:4px;overflow-x:auto;padding-bottom:2px;flex:1;min-width:0}
+.picks button{flex:none;width:38px;height:38px;border-radius:9px;background:var(--sf);border:1px solid var(--line);font-size:18px}
+.guard{background:var(--danger-soft);border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.6}
+.guard b{color:var(--danger)}
+details.help{background:var(--sf);border:1px solid var(--line);border-radius:10px;padding:0 12px;font-size:13.5px}
+details.help summary{padding:10px 0;font-weight:700;color:var(--pri);cursor:pointer}
+details.help table{border-collapse:collapse;width:100%;margin-bottom:10px}
+details.help td{padding:6px 4px;border-top:1px solid var(--line);vertical-align:top}
+details.help td:first-child{font-family:ui-monospace,Menlo,monospace;white-space:nowrap;padding-right:10px;color:var(--ink)}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--line);border-radius:10px;padding:3px;gap:3px}
+.seg button{padding:7px;border-radius:8px;font-size:14px;color:var(--ink2)}
+.seg button[aria-pressed="true"]{background:var(--sf);color:var(--ink);font-weight:700}
+.preview{border:1px solid var(--line);border-radius:10px;padding:14px;background:var(--bg);min-height:200px}
+.msg{border-radius:10px;padding:10px 12px;font-size:13.5px;line-height:1.6}
+.msg.warn{background:var(--acc-soft)}
+.msg.err{background:var(--danger-soft)}
+.confirm{display:flex;flex-direction:column;gap:10px;background:var(--danger-soft);border-radius:var(--r);padding:12px}
+
+/* ダイアログ */
+.modal{position:fixed;inset:0;z-index:50;background:rgba(10,15,25,.5);display:flex;align-items:flex-end;justify-content:center;
+  padding:16px max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.sheet{width:100%;max-width:480px;background:var(--sf);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px;max-height:calc(100% - 20px);overflow:auto}
+.sheet h2{font-family:var(--f-head);font-size:18px}
+.sheet p{font-size:14px;color:var(--ink2)}
+@media (min-height:600px){.modal{align-items:center}}
+
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(84px + env(safe-area-inset-bottom,0px));z-index:60;background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:99px;font-size:14px;max-width:calc(100% - 32px);text-align:center}
+.loading{padding:40px 0;text-align:center;color:var(--ink2)}
 </style>
-
-<div id="app">
-
-  <!-- Main View -->
-  <div id="mainView">
-    <div class="hdr">
-      <div class="hdr-title">マニュアルホーム</div>
-      <div class="hdr-sub">薬局スタッフ用 マニュアル一覧</div>
+</head>
+<body>
+<div class="app">
+  <header class="appbar" id="appbar"></header>
+  <div class="banner" id="banner" hidden></div>
+  <main id="main"><div class="loading">読み込み中…</div></main>
+  <nav class="tabs" id="tabs" aria-label="メニュー">
+    <div class="tabs-in">
+      <a class="tab" href="#home" data-tab="home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>ホーム</a>
+      <a class="tab" href="#manuals" data-tab="manuals"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 21V5M8 7h7"/></svg>マニュアル</a>
+      <a class="tab" href="#favs" data-tab="favs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.3 6.4 20.2l1.1-6.2L3 9.6l6.2-.9z"/></svg>お気に入り</a>
+      <a class="tab" href="#forms" data-tab="forms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/></svg>申請</a>
     </div>
-    <div class="search-wrap">
-      <div class="search-box">
-        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8.5" cy="8.5" r="5.5"/><line x1="13" y1="13" x2="18" y2="18"/></svg>
-        <input class="search-input" id="searchInput" type="text" placeholder="キーワードで検索…">
-        <button class="search-clear" id="searchClear" onclick="clearSearch()">✕</button>
-      </div>
-    </div>
-    <div class="main">
-      <div id="searchResults" style="display:none"></div>
-      <div id="catList">
-
-      <div class="cat-card" onclick="showDetail(0)">
-        <div class="cat-icon">📋</div>
-        <div class="cat-info">
-          <div class="cat-name">申請フォーム</div>
-          <div class="cat-count">3件のフォーム</div>
-        </div>
-        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
-      </div>
-
-      <div class="cat-card" onclick="showDetail(1)">
-        <div class="cat-icon">📚</div>
-        <div class="cat-info">
-          <div class="cat-name">新人・研修用マニュアル</div>
-          <div class="cat-count">3件のマニュアル</div>
-        </div>
-        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
-      </div>
-
-      <div class="cat-card" onclick="showDetail(2)">
-        <div class="cat-icon">💊</div>
-        <div class="cat-info">
-          <div class="cat-name">業務マニュアル・SOP</div>
-          <div class="cat-count">7件のマニュアル</div>
-        </div>
-        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
-      </div>
-
-      <div class="cat-card" onclick="showDetail(3)">
-        <div class="cat-icon">📌</div>
-        <div class="cat-info">
-          <div class="cat-name">その他・共通ルール</div>
-          <div class="cat-count">2件のルール</div>
-        </div>
-        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
-      </div>
-
-      <div class="cat-card" onclick="showDetail(4)">
-        <div class="cat-icon">🔧</div>
-        <div class="cat-info">
-          <div class="cat-name">トラブル対応・メンテナンス業務</div>
-          <div class="cat-count">6件のマニュアル</div>
-        </div>
-        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
-      </div>
-
-      <div class="cat-card" onclick="showDetail(5)">
-        <div class="cat-icon">🏥</div>
-        <div class="cat-info">
-          <div class="cat-name">患者配布物</div>
-          <div class="cat-count">患者さん向け資料</div>
-        </div>
-        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
-      </div>
-
-      <div class="cat-card" onclick="showDetail(6)">
-        <div class="cat-icon">🗄️</div>
-        <div class="cat-info">
-          <div class="cat-name">データ保管</div>
-          <div class="cat-count">書類・テンプレート</div>
-        </div>
-        <svg class="cat-arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="7,4 14,10 7,16"/></svg>
-      </div>
-
-    </div>
-    </div>
-  </div>
-
-  <!-- Detail View -->
-  <div class="detail" id="detailView">
-    <div class="detail-hdr">
-      <button class="back-btn" onclick="hideDetail()">←</button>
-      <span class="detail-icon" id="detailIcon"></span>
-      <span class="detail-title" id="detailTitle"></span>
-    </div>
-    <div class="detail-items" id="detailItems"></div>
-  </div>
-
+  </nav>
 </div>
+<div class="modal" id="modal" hidden><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast" role="status" hidden></div>
 
 <script>
-const cats = [
-  {
-    name: '申請フォーム', icon: '📋',
-    items: [
-      { name: '残業申請', icon: '⏰', href: 'https://docs.google.com/forms/d/e/1FAIpQLSeP89kxMD33sGVL7WAAz2wAvmM5e2jbKrmSIxqwoTjDpHJ-0w/viewform' },
-      { name: '購入申請', icon: '🛒', href: 'https://docs.google.com/forms/d/e/1FAIpQLSe8nWOpjV93YNCDRhkovB52JveH6CbWrGR1c8J0u3NTpyPJhg/viewform' },
-      { name: '会社への要望・相談（ハラスメント相談含む）', icon: '💬', href: 'https://docs.google.com/forms/d/e/1FAIpQLSdLEVYpBuGnNpZ2uiU6It6xyNGO0TV_h70YQScYGV5nADSWxg/viewform' }
-    ]
-  },
-  {
-    name: '新人・研修用マニュアル', icon: '📚',
-    items: [
-      { name: '入社時オリエンテーション', icon: '🏢', prep: true },
-      { name: '基本業務の流れ', icon: '📝', prep: true },
-      { name: '研修チェックリスト', icon: '✅', prep: true }
-    ]
-  },
-  {
-    name: '業務マニュアル・SOP', icon: '💊',
-    items: [
-      { name: '調剤業務手順', icon: '⚗️', prep: true },
-      { name: '服薬指導の手順', icon: '🗣️', prep: true },
-      { name: '在庫管理・発注', icon: '📦', prep: true },
-      { name: 'レセプト・会計業務', icon: '🧾', prep: true },
-      { name: 'レセコン操作マニュアル', icon: '🖥️', prep: true },
-      { name: '電子薬歴の使い方', icon: '📱', prep: true },
-      { name: '分包機など機器操作', icon: '⚙️', prep: true }
-    ]
-  },
-  {
-    name: 'その他・共通ルール', icon: '📌',
-    items: [
-      { name: '緊急時対応', icon: '🚨', prep: true },
-      { name: '社内ルール・規定', icon: '📖', prep: true }
-    ]
-  },
-  {
-    name: 'トラブル対応・メンテナンス業務', icon: '🔧',
-    items: [
-      { name: 'proofitラベル交換', icon: '🏷️', href: 'proofit-label.html' },
-      { name: '機器エラー復旧手順', icon: '🖥️', prep: true },
-      { name: 'GooCo薬歴飛ばない', icon: '📡', href: 'gooco-yakureki.html' },
-      { name: '新患マスタ紐づけトラブルの対処法', icon: '🔗', prep: true },
-      { name: '日次メンテナンス業務', icon: '🧹', prep: true },
-      { name: '月次メンテナンス業務', icon: '📅', prep: true }
-    ]
-  },
-  {
-    name: '患者配布物', icon: '🏥',
-    items: [
-      { name: 'お薬手帳の使い方', icon: '📒', prep: true },
-      { name: '服用方法の説明書', icon: '💊', prep: true },
-      { name: 'ジェネリック医薬品のご案内', icon: '📄', prep: true }
-    ]
-  },
-  {
-    name: 'データ保管', icon: '🗄️',
-    items: [
-      { name: '各種テンプレート', icon: '📝', prep: true },
-      { name: '届出書類', icon: '📋', prep: true },
-      { name: '研修記録', icon: '✅', prep: true }
-    ]
+// ▼ Apps Script のウェブアプリURL（デプロイ後にここへ貼る）
+const API_URL = '';
+
+// ───────── 見本データ（API_URL が空のときだけ使う） ─────────
+const SAMPLE = (() => {
+  const cats = [['training','新人・研修用マニュアル','📚'],['sop','業務マニュアル・SOP','💊'],['trouble','トラブル対応・メンテナンス業務','🔧'],['rules','その他・共通ルール','📌'],['handout','患者配布物','🏥'],['storage','データ保管','🗄️']];
+  const ms = [
+    ['orientation','training','入社時オリエンテーション','🏢'],['basic-flow','training','基本業務の流れ','📝'],['training-check','training','研修チェックリスト','✅'],
+    ['dispensing','sop','調剤業務手順','⚗️'],['counseling','sop','服薬指導の手順','🗣️'],['stock','sop','在庫管理・発注','📦'],['receipt','sop','レセプト・会計業務','🧾'],['rececom','sop','レセコン操作マニュアル','🖥️'],['e-yakureki','sop','電子薬歴の使い方','📱'],['machines','sop','分包機など機器操作','⚙️'],
+    ['proofit','trouble','proofitラベル交換','🏷️','動画 https://drive.google.com/file/d/1_BzRRRkOLsyQGISYfpdOupdDl_29NjRo/view\nラベル交換の手順を動画で確認できます。'],
+    ['machine-error','trouble','機器エラー復旧手順','🖥️'],
+    ['gooco','trouble','GooCo薬歴飛ばない','📡','動画 https://drive.google.com/file/d/1N8SUtZRz3Hzyy17KClV6qGYpOz5zhL8x/view\n薬歴データが送信できない場合の復旧手順を動画で確認できます。'],
+    ['new-patient-master','trouble','新患マスタ紐づけトラブルの対処法','🔗'],['daily','trouble','日次メンテナンス業務','🧹'],['monthly','trouble','月次メンテナンス業務','📅'],
+    ['emergency','rules','緊急時対応','🚨'],['company-rules','rules','社内ルール・規定','📖'],
+    ['okusuri-techo','handout','お薬手帳の使い方','📒'],['how-to-take','handout','服用方法の説明書','💊'],['generic','handout','ジェネリック医薬品のご案内','📄'],
+    ['templates','storage','各種テンプレート','📝'],['notifications','storage','届出書類','📋'],['training-records','storage','研修記録','✅']
+  ];
+  const fs = [
+    ['overtime','残業申請','⏰','https://docs.google.com/forms/d/e/1FAIpQLSeP89kxMD33sGVL7WAAz2wAvmM5e2jbKrmSIxqwoTjDpHJ-0w/viewform'],
+    ['purchase','購入申請','🛒','https://docs.google.com/forms/d/e/1FAIpQLSe8nWOpjV93YNCDRhkovB52JveH6CbWrGR1c8J0u3NTpyPJhg/viewform'],
+    ['request','会社への要望・相談（ハラスメント相談含む）','💬','https://docs.google.com/forms/d/e/1FAIpQLSdLEVYpBuGnNpZ2uiU6It6xyNGO0TV_h70YQScYGV5nADSWxg/viewform']
+  ];
+  return {
+    categories: cats.map(([id,name,icon],i) => ({id,name,icon,order:i+1})),
+    manuals: ms.map(([id,categoryId,title,icon,body],i) => ({id,categoryId,title,icon,body:body||'',updatedAt:'',updatedBy:'',order:i+1})),
+    forms: fs.map(([id,name,icon,url],i) => ({id,name,icon,url,order:i+1}))
+  };
+})();
+
+// ───────── 端末に保存するもの ─────────
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('portal.' + k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('portal.' + k, JSON.stringify(v)); } catch (e) {} },
+  del(k) { try { localStorage.removeItem('portal.' + k); } catch (e) {} }
+};
+const session = {
+  get(k) { try { return sessionStorage.getItem('portal.' + k); } catch (e) { return null; } },
+  set(k, v) { try { sessionStorage.setItem('portal.' + k, v); } catch (e) {} },
+  del(k) { try { sessionStorage.removeItem('portal.' + k); } catch (e) {} }
+};
+
+let DATA = API_URL ? store.get('cache', null) : SAMPLE;
+let favs = store.get('favs', []);
+let openCats = new Set(store.get('openCats', []));
+let formEdit = false;
+let lastTab = 'home';
+let query = '';
+let loadError = false;
+let editor = null; // 編集中の状態
+
+const $ = (s, el = document) => el.querySelector(s);
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const userName = () => store.get('name', '');
+const catOf = id => (DATA?.categories || []).find(c => c.id === id);
+const manualOf = id => (DATA?.manuals || []).find(m => m.id === id);
+const isFav = id => favs.includes(id);
+const ICON_CHEV = '<svg class="chev" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M7 4l6 6-6 6"/></svg>';
+const ICON_BACK = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>';
+const ICON_DOWN = '<svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 8l5 5 5-5"/></svg>';
+const ICON_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>';
+const ICON_PICKS = ['📄','📝','⚗️','💊','🖥️','⚙️','🔧','🏷️','📡','🚨','📦','🧾','📋','✅','📅','🧹','📒','🔗','📖','🗣️'];
+
+// ───────── 日付 ─────────
+function fmtDate(iso, long) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d)) return '';
+  const now = new Date();
+  const md = `${d.getMonth() + 1}/${d.getDate()}`;
+  if (!long) return d.getFullYear() === now.getFullYear() ? md : `${d.getFullYear()}/${md}`;
+  return `${d.getFullYear()}年${d.getMonth() + 1}月${d.getDate()}日 ${d.getHours()}:${String(d.getMinutes()).padStart(2, '0')}`;
+}
+const isNew = iso => iso && (Date.now() - new Date(iso).getTime()) < 7 * 864e5;
+
+// ───────── 検索（ひらがな・カタカナ、全角・半角を区別しない） ─────────
+function fold(s) {
+  return String(s || '').normalize('NFKC').toLowerCase().replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
+}
+function highlight(text, q) {
+  const f = fold(text), fq = fold(q);
+  if (!fq || f.length !== text.length) return esc(text);
+  let out = '', i = 0, j;
+  while ((j = f.indexOf(fq, i)) !== -1) { out += esc(text.slice(i, j)) + '<mark>' + esc(text.slice(j, j + fq.length)) + '</mark>'; i = j + fq.length; }
+  return out + esc(text.slice(i));
+}
+function plainBody(body) {
+  return String(body || '').split('\n').map(l => l.replace(/^\s*(##\s*|\d{1,2}[.．、)）]\s*|[-・•]\s*|[!！⚠]\s*|動画[:：]?\s*)/, '')).join(' ').replace(/https?:\/\/\S+/g, '').replace(/\*\*/g, '').replace(/\s+/g, ' ').trim();
+}
+function search(q) {
+  const fq = fold(q.trim());
+  if (!fq) return [];
+  return DATA.manuals.map(m => {
+    const body = plainBody(m.body);
+    const cat = catOf(m.categoryId);
+    const inTitle = fold(m.title).includes(fq);
+    const bi = fold(body).indexOf(fq);
+    const inCat = cat && fold(cat.name).includes(fq);
+    if (!inTitle && bi === -1 && !inCat) return null;
+    let ex = '';
+    if (bi !== -1) { const s = Math.max(0, bi - 18); ex = (s > 0 ? '…' : '') + body.slice(s, bi + fq.length + 40); }
+    return { m, ex, score: inTitle ? 0 : bi !== -1 ? 1 : 2 };
+  }).filter(Boolean).sort((a, b) => a.score - b.score);
+}
+
+// ───────── 本文の表示 ─────────
+function inline(s) {
+  return esc(s)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/https?:\/\/[^\s<]+/g, u => `<a href="${u}" target="_blank" rel="noopener">${u}</a>`);
+}
+function videoEmbed(url) {
+  let m = url.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?id=)([\w-]{10,})/);
+  if (m) return `https://drive.google.com/file/d/${m[1]}/preview`;
+  m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|shorts\/|embed\/))([\w-]{11})/);
+  if (m) return `https://www.youtube-nocookie.com/embed/${m[1]}`;
+  return null;
+}
+function renderBody(text) {
+  const out = [];
+  let list = null; // 'steps' | 'ul'
+  const close = () => { if (list) out.push(list === 'steps' ? '</div>' : '</ul>'); list = null; };
+  const open = t => { if (list !== t) { close(); out.push(t === 'steps' ? '<div class="steps">' : '<ul>'); list = t; } };
+  for (const raw of String(text || '').replace(/\r/g, '').split('\n')) {
+    const t = raw.trim();
+    let m;
+    if (!t) { close(); continue; }
+    if ((m = t.match(/^##\s*(.+)$/))) { close(); out.push(`<h3>${inline(m[1])}</h3>`); }
+    else if ((m = t.match(/^(\d{1,2})[.．、)）]\s*(.+)$/))) { open('steps'); out.push(`<div class="step"><span class="no">${esc(m[1])}</span><div class="tx">${inline(m[2])}</div></div>`); }
+    else if ((m = t.match(/^[-・•]\s*(.+)$/))) { open('ul'); out.push(`<li>${inline(m[1])}</li>`); }
+    else if ((m = t.match(/^[!！⚠]\s*(.+)$/))) { close(); out.push(`<div class="note"><div>${inline(m[1])}</div></div>`); }
+    else if ((m = t.match(/^(?:動画[:：]?\s*)?(https?:\/\/\S+)$/)) && videoEmbed(m[1])) {
+      close();
+      out.push(`<div class="video"><div class="fr"><iframe src="${esc(videoEmbed(m[1]))}" allow="autoplay; fullscreen" allowfullscreen loading="lazy" title="動画"></iframe></div><a href="${esc(m[1])}" target="_blank" rel="noopener">動画が表示されないときは、ここを押して開く</a></div>`);
+    }
+    else { close(); out.push(`<p>${inline(t)}</p>`); }
   }
-];
+  close();
+  return out.join('');
+}
 
-function showDetail(i) {
-  const c = cats[i];
-  document.getElementById('detailIcon').textContent = c.icon;
-  document.getElementById('detailTitle').textContent = c.name;
-  const box = document.getElementById('detailItems');
-  box.innerHTML = '';
-  c.items.forEach(it => {
-    const el = document.createElement(it.href ? 'a' : 'div');
-    el.className = 'd-item' + (it.prep ? ' prep' : '');
-    if (it.href) { el.href = it.href; el.target = '_blank'; el.rel = 'noopener'; }
-    el.innerHTML =
-      '<span class="d-item-icon">' + it.icon + '</span>' +
-      '<div class="d-item-info"><div class="d-item-name">' + it.name + '</div></div>' +
-      (it.prep ? '<span class="d-item-badge">準備中</span>' : '<span class="d-item-arr">›</span>');
-    box.appendChild(el);
+// ───────── 通信 ─────────
+const ERRORS = {
+  badpass: '暗証番号がちがいます。',
+  locked: '暗証番号を何度も間違えたため、10分間ロックしています。時間をおいてやり直してください。',
+  nopass: '暗証番号がまだ設定されていません（スクリプト プロパティ PASSCODE）。',
+  nosetup: 'スプレッドシートの準備ができていません（setup が未実行です）。',
+  notitle: 'タイトルを入れてください。',
+  toolong: '本文が長すぎます。2つのマニュアルに分けてください。',
+  nocategory: 'カテゴリを選んでください。',
+  notfound: 'このマニュアルは削除されています。',
+  badurl: 'URLは https:// から始まるものを入れてください。',
+  busy: 'ほかの人が保存中です。少し待ってからもう一度押してください。',
+  network: '通信できませんでした。電波の良いところでもう一度押してください。',
+  noapi: 'データの保存先がまだ設定されていないため、いまは見本の表示です。編集はできません。'
+};
+async function apiGet() {
+  const r = await fetch(API_URL + '?action=all&t=' + Date.now(), { cache: 'no-store' });
+  const j = await r.json();
+  if (!j.ok) throw Object.assign(new Error(j.error), { code: j.error });
+  return j;
+}
+async function apiPost(action, data, passcode) {
+  if (!API_URL) throw Object.assign(new Error('noapi'), { code: 'noapi' });
+  let j;
+  try {
+    const r = await fetch(API_URL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action, data, passcode, name: userName() }) });
+    j = await r.json();
+  } catch (e) { throw Object.assign(new Error('network'), { code: 'network' }); }
+  if (!j.ok) throw Object.assign(new Error(j.error), { code: j.error, detail: j.message });
+  if (j.categories) setData(j);
+  return j;
+}
+function setData(j) {
+  DATA = { categories: j.categories, manuals: j.manuals, forms: j.forms };
+  store.set('cache', DATA);
+  const live = new Set(DATA.manuals.map(m => m.id));
+  if (favs.some(id => !live.has(id))) { favs = favs.filter(id => live.has(id)); store.set('favs', favs); }
+}
+async function refresh() {
+  if (!API_URL) { showBanner(ERRORS.noapi); return; }
+  try {
+    setData(await apiGet());
+    loadError = false;
+    showBanner('');
+  } catch (e) {
+    loadError = true;
+    showBanner(DATA ? '最新の内容を読み込めませんでした。前回読み込んだ内容を表示しています。' : '読み込めませんでした。電波の良いところで、ページを開き直してください。');
+  }
+  // 編集中・ダイアログ表示中は画面を描き直さない
+  if (!editor && $('#modal').hidden && !['edit', 'new'].includes(curPage())) route();
+}
+function showBanner(text) { const b = $('#banner'); b.textContent = text; b.hidden = !text; }
+
+// ───────── 暗証番号 ─────────
+function askPasscode() {
+  return new Promise(resolve => {
+    openModal(`
+      <h2>暗証番号を入れてください</h2>
+      <p>マニュアルの編集・追加には暗証番号が必要です。</p>
+      <form id="passForm" class="field">
+        <label for="passInput">暗証番号</label>
+        <input class="inp" id="passInput" type="password" autocomplete="off" required>
+        <div class="msg err" id="passErr" hidden></div>
+        <div class="btns" style="margin-top:6px"><button type="button" class="btn" id="passCancel">やめる</button><button class="btn pri" id="passOk">確認</button></div>
+      </form>`, () => resolve(null));
+    const input = $('#passInput');
+    setTimeout(() => input.focus(), 50);
+    $('#passCancel').onclick = () => { closeModal(); resolve(null); };
+    $('#passForm').onsubmit = async ev => {
+      ev.preventDefault();
+      const ok = $('#passOk'); ok.disabled = true; ok.textContent = '確認中…';
+      try {
+        await apiPost('verify', {}, input.value);
+        session.set('pass', input.value);
+        closeModal(true); resolve(input.value);
+      } catch (e) {
+        const err = $('#passErr'); err.textContent = ERRORS[e.code] || 'エラーが起きました。'; err.hidden = false;
+        ok.disabled = false; ok.textContent = '確認';
+      }
+    };
   });
-  document.getElementById('detailView').classList.add('active');
+}
+async function ensurePass() {
+  if (!API_URL) { toast(ERRORS.noapi, 4000); return null; }
+  return session.get('pass') || await askPasscode();
 }
 
-function hideDetail() {
-  document.getElementById('detailView').classList.remove('active');
+// ───────── ダイアログ・お知らせ ─────────
+let modalCancel = null;
+function openModal(html, onCancel) {
+  $('#sheet').innerHTML = html;
+  $('#modal').hidden = false;
+  modalCancel = onCancel || null;
+}
+function closeModal(silent) {
+  $('#modal').hidden = true; $('#sheet').innerHTML = '';
+  const c = modalCancel; modalCancel = null;
+  if (!silent && c) c();
+}
+$('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape' && !$('#modal').hidden) closeModal(); });
+let toastTimer;
+function toast(text, ms = 2400) {
+  const t = $('#toast'); t.textContent = text; t.hidden = false;
+  clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, ms);
 }
 
-// Search
-const searchInput = document.getElementById('searchInput');
-const searchResults = document.getElementById('searchResults');
-const catList = document.getElementById('catList');
-const searchClear = document.getElementById('searchClear');
+function askName() {
+  openModal(`
+    <h2>お名前の登録</h2>
+    <p>あいさつと、マニュアルを更新した人の記録に使います。名前はこのスマホの中だけに保存されます。</p>
+    <form id="nameForm" class="field">
+      <label for="nameInput">名前（ニックネームでもOK）</label>
+      <input class="inp" id="nameInput" maxlength="20" value="${esc(userName())}" autocomplete="off">
+      <div class="btns" style="margin-top:6px"><button type="button" class="btn" id="nameCancel">やめる</button><button class="btn pri">保存</button></div>
+    </form>`);
+  setTimeout(() => $('#nameInput').focus(), 50);
+  $('#nameCancel').onclick = () => closeModal();
+  $('#nameForm').onsubmit = e => {
+    e.preventDefault();
+    const v = $('#nameInput').value.trim().slice(0, 20);
+    if (v) store.set('name', v); else store.del('name');
+    closeModal(); route(); toast(v ? '名前を保存しました' : '名前を消しました');
+  };
+}
 
-searchInput.addEventListener('input', function() {
-  const q = this.value.trim().toLowerCase();
-  searchClear.classList.toggle('show', q.length > 0);
-  if (!q) {
-    searchResults.style.display = 'none';
-    catList.style.display = 'block';
+// ───────── 画面の部品 ─────────
+function setBar({ title, sub, back }) {
+  $('#appbar').innerHTML = (back ? `<button class="back" id="backBtn" aria-label="戻る">${ICON_BACK}</button>` : '') +
+    `<div class="tt"><h1>${esc(title)}</h1>${sub ? `<div class="sub">${esc(sub)}</div>` : ''}</div>`;
+  if (back) $('#backBtn').onclick = goBack;
+}
+function setTabs(active) {
+  const show = !!active;
+  $('#tabs').hidden = !show;
+  $('#main').classList.toggle('no-tabs', !show);
+  document.querySelectorAll('.tab').forEach(t => t.dataset.tab === active ? t.setAttribute('aria-current', 'page') : t.removeAttribute('aria-current'));
+}
+function manualRow(m, opts = {}) {
+  const prep = !String(m.body || '').trim();
+  const right = opts.ex !== undefined ? '' :
+    prep ? '<span class="chip prep">準備中</span>' :
+    opts.date ? (isNew(m.updatedAt) ? '<span class="chip new">NEW</span>' : `<span class="m">${esc(fmtDate(m.updatedAt))}</span>`) : '';
+  const title = opts.q ? highlight(m.title, opts.q) : esc(m.title);
+  const sub = opts.ex !== undefined ? `<span class="ex">${esc(catOf(m.categoryId)?.name || '')}${opts.ex ? '｜' + highlight(opts.ex, opts.q) : ''}</span>` : '';
+  return `<a class="row" href="#m/${encodeURIComponent(m.id)}"><span class="ic">${esc(m.icon || '📄')}</span><span class="n">${title}${sub}</span>${isFav(m.id) && !opts.noStar ? '<span class="fstar" aria-label="お気に入り">★</span>' : ''}${right}${ICON_CHEV}</a>`;
+}
+
+// ───────── 各画面 ─────────
+function viewHome() {
+  setBar({ title: 'マニュアルポータル', sub: 'イトー寿薬局・やしお薬局' });
+  setTabs('home');
+  const main = $('#main');
+  main.innerHTML = `
+    <div class="search">${ICON_SEARCH}<input id="q" type="search" placeholder="キーワードで検索" value="${esc(query)}" autocomplete="off" aria-label="マニュアルを検索"><button class="clear" id="qClear" aria-label="検索を消す" ${query ? '' : 'hidden'}>✕</button></div>
+    <div id="homeBody"></div>`;
+  const q = $('#q');
+  q.addEventListener('input', () => { query = q.value; $('#qClear').hidden = !query; renderHomeBody(); });
+  $('#qClear').onclick = e => { e.preventDefault(); query = ''; q.value = ''; $('#qClear').hidden = true; renderHomeBody(); q.focus(); };
+  renderHomeBody();
+}
+function renderHomeBody() {
+  const box = $('#homeBody');
+  box.style.cssText = 'display:flex;flex-direction:column;gap:14px';
+  if (query.trim()) {
+    const hits = search(query);
+    box.innerHTML = `<div class="sec">検索結果 ${hits.length}件</div>` +
+      (hits.length ? `<div class="list">${hits.map(h => manualRow(h.m, { ex: h.ex, q: query })).join('')}</div>`
+                   : `<div class="empty">「${esc(query)}」に当てはまるマニュアルはありませんでした。<br>別のことばで探すか、「マニュアル」タブから探してください。</div>`);
     return;
   }
-  catList.style.display = 'none';
-  searchResults.style.display = 'block';
-  searchResults.innerHTML = '';
-  let found = 0;
-  cats.forEach(function(c) {
-    const matches = c.items.filter(function(it) {
-      return it.name.toLowerCase().indexOf(q) !== -1 ||
-             c.name.toLowerCase().indexOf(q) !== -1;
-    });
-    if (matches.length === 0) return;
-    const label = document.createElement('div');
-    label.className = 'sr-cat';
-    label.textContent = c.icon + ' ' + c.name;
-    searchResults.appendChild(label);
-    matches.forEach(function(it) {
-      const el = document.createElement(it.href ? 'a' : 'div');
-      el.className = 'd-item' + (it.prep ? ' prep' : '');
-      if (it.href) { el.href = it.href; el.target = '_blank'; el.rel = 'noopener'; }
-      el.innerHTML =
-        '<span class="d-item-icon">' + it.icon + '</span>' +
-        '<div class="d-item-info"><div class="d-item-name">' + it.name + '</div></div>' +
-        (it.prep ? '<span class="d-item-badge">準備中</span>' : '<span class="d-item-arr">›</span>');
-      searchResults.appendChild(el);
-      found++;
-    });
-  });
-  if (found === 0) {
-    searchResults.innerHTML = '<div class="no-results">該当する項目がありません</div>';
-  }
-});
-
-function clearSearch() {
-  searchInput.value = '';
-  searchClear.classList.remove('show');
-  searchResults.style.display = 'none';
-  catList.style.display = 'block';
-  searchInput.focus();
+  const name = userName();
+  const favList = favs.map(manualOf).filter(Boolean);
+  const recent = DATA.manuals.filter(m => m.updatedAt && String(m.body || '').trim()).sort((a, b) => b.updatedAt.localeCompare(a.updatedAt)).slice(0, 5);
+  box.innerHTML = `
+    <div class="hello"><div class="t">${name ? `おつかれさまです、<b>${esc(name)}</b> さん` : '<b>はじめまして</b><small>名前を登録すると、あいさつと更新者の記録に使われます</small>'}</div><button class="link-btn" id="nameBtn">${name ? '変更' : '登録する'}</button></div>
+    <div class="sec"><span><span class="star">★</span> お気に入り</span>${favList.length ? '<button id="toFavs">すべて見る</button>' : ''}</div>
+    ${favList.length ? `<div class="favs">${favList.slice(0, 4).map(m => `<a class="fav" href="#m/${encodeURIComponent(m.id)}" style="text-decoration:none;color:inherit"><span class="ic">${esc(m.icon || '📄')}</span><span class="n">${esc(m.title)}</span></a>`).join('')}</div>`
+                     : '<div class="empty">マニュアルを開いて「★ お気に入り」を押すと、ここに並びます。</div>'}
+    <div class="sec">最近の更新</div>
+    ${recent.length ? `<div class="list">${recent.map(m => manualRow(m, { date: true })).join('')}</div>` : '<div class="empty">まだ更新されたマニュアルはありません。</div>'}
+    <a class="btn wide" href="#forms">申請フォームを開く</a>`;
+  $('#nameBtn').onclick = askName;
+  const tf = $('#toFavs'); if (tf) tf.onclick = () => { location.hash = 'favs'; };
 }
 
-document.addEventListener('touchstart', function(e) {
-  var t = e.target.closest('.cat-card, .d-item, .back-btn');
-  if (!t) return;
-  t.classList.add('tap');
-  t.addEventListener('touchend', function rm() { t.classList.remove('tap'); t.removeEventListener('touchend', rm); }, {once: true});
-  t.addEventListener('touchcancel', function rm() { t.classList.remove('tap'); t.removeEventListener('touchcancel', rm); }, {once: true});
-}, {passive: true});
+function viewManuals() {
+  setBar({ title: 'マニュアル', sub: 'カテゴリを押すと一覧が開きます' });
+  setTabs('manuals');
+  const main = $('#main');
+  main.innerHTML = DATA.categories.map(c => {
+    const items = DATA.manuals.filter(m => m.categoryId === c.id);
+    const open = openCats.has(c.id);
+    return `<div class="cat ${open ? 'open' : ''}">
+      <button class="cat-h" data-cat="${esc(c.id)}" aria-expanded="${open}"><span class="ic">${esc(c.icon)}</span><span class="n">${esc(c.name)}</span><span class="c">${items.length}件</span>${ICON_DOWN}</button>
+      <div ${open ? '' : 'hidden'}>${items.map(m => manualRow(m)).join('')}<button class="add-in" data-add="${esc(c.id)}">＋ このカテゴリにマニュアルを追加</button></div>
+    </div>`;
+  }).join('') + (DATA.categories.length ? '' : '<div class="empty">カテゴリがありません。</div>') +
+  '<p class="hint">カテゴリそのものを増やしたり名前を変えたりするときは、スプレッドシートの「categories」シートを直接編集してください。</p>';
+  main.querySelectorAll('[data-cat]').forEach(b => b.onclick = () => {
+    const id = b.dataset.cat;
+    openCats.has(id) ? openCats.delete(id) : openCats.add(id);
+    store.set('openCats', [...openCats]);
+    const y = window.scrollY; viewManuals(); window.scrollTo(0, y);
+  });
+  main.querySelectorAll('[data-add]').forEach(b => b.onclick = () => { location.hash = 'new/' + encodeURIComponent(b.dataset.add); });
+}
+
+function viewFavs() {
+  setBar({ title: 'お気に入り', sub: 'このスマホだけに保存されます' });
+  setTabs('favs');
+  const list = favs.map(manualOf).filter(Boolean);
+  $('#main').innerHTML = list.length
+    ? `<div class="list">${list.map(m => manualRow(m, { noStar: true })).join('')}</div><p class="hint">外すときは、マニュアルを開いて「★ お気に入り」をもう一度押してください。</p>`
+    : '<div class="empty">まだお気に入りはありません。<br>よく見るマニュアルを開いて「★ お気に入り」を押すと、ここに並びます。</div>';
+}
+
+function viewForms() {
+  setBar({ title: '申請フォーム', sub: 'Googleフォームが開きます' });
+  setTabs('forms');
+  const main = $('#main');
+  main.innerHTML = `
+    <div class="list">${DATA.forms.map(f => formEdit
+      ? `<button class="row" data-edit="${esc(f.id)}"><span class="ic">${esc(f.icon || '📝')}</span><span class="n">${esc(f.name)}</span><span class="m">✏️ 編集</span></button>`
+      : `<a class="row" href="${esc(f.url)}" target="_blank" rel="noopener"><span class="ic">${esc(f.icon || '📝')}</span><span class="n">${esc(f.name)}</span>${ICON_CHEV}</a>`).join('') || '<div class="row"><span class="n hint">フォームがありません</span></div>'}</div>
+    ${formEdit ? '<button class="btn pri wide" id="addForm">＋ フォームを追加</button><button class="btn wide" id="endEdit">編集を終わる</button>'
+               : '<button class="link-btn" id="startEdit" style="align-self:flex-start">フォームを追加・編集する（暗証番号）</button>'}`;
+  const s = $('#startEdit'); if (s) s.onclick = async () => { if (await ensurePass() && curPage() === 'forms') { formEdit = true; viewForms(); } };
+  const e = $('#endEdit'); if (e) e.onclick = () => { formEdit = false; viewForms(); };
+  const a = $('#addForm'); if (a) a.onclick = () => formDialog(null);
+  main.querySelectorAll('[data-edit]').forEach(b => b.onclick = () => formDialog(DATA.forms.find(f => f.id === b.dataset.edit)));
+}
+function formDialog(f) {
+  openModal(`
+    <h2>${f ? 'フォームを編集' : 'フォームを追加'}</h2>
+    <form id="fForm" style="display:flex;flex-direction:column;gap:12px">
+      <div class="field"><label for="fName">名前</label><input class="inp" id="fName" maxlength="60" required value="${esc(f?.name || '')}"></div>
+      <div class="field"><label for="fUrl">GoogleフォームのURL</label><input class="inp" id="fUrl" type="url" required placeholder="https://docs.google.com/forms/…" value="${esc(f?.url || '')}"></div>
+      <div class="field"><label for="fIcon">アイコン（絵文字1つ）</label><input class="inp" id="fIcon" maxlength="8" style="width:72px;text-align:center;font-size:20px" value="${esc(f?.icon || '📝')}"></div>
+      <div class="msg err" id="fErr" hidden></div>
+      <div class="btns"><button type="button" class="btn" id="fCancel">やめる</button><button class="btn pri" id="fSave">保存</button></div>
+      ${f ? '<button type="button" class="btn danger" id="fDel">このフォームを一覧から消す</button>' : ''}
+    </form>`);
+  $('#fCancel').onclick = () => closeModal();
+  const err = m => { const el = $('#fErr'); el.textContent = m; el.hidden = !m; };
+  const run = async (action, data, btn, label) => {
+    btn.disabled = true; const old = btn.textContent; btn.textContent = '保存中…';
+    try {
+      const pass = await ensurePass(); if (!pass) { btn.disabled = false; btn.textContent = old; return; }
+      await apiPost(action, data, pass);
+      closeModal(true); viewForms(); toast(label);
+    } catch (e) {
+      if (e.code === 'badpass') session.del('pass');
+      err(ERRORS[e.code] || 'エラーが起きました。'); btn.disabled = false; btn.textContent = old;
+    }
+  };
+  $('#fForm').onsubmit = e => {
+    e.preventDefault();
+    run('saveForm', { id: f?.id || '', name: $('#fName').value, url: $('#fUrl').value.trim(), icon: $('#fIcon').value }, $('#fSave'), '保存しました');
+  };
+  const d = $('#fDel');
+  if (d) d.onclick = () => {
+    if (d.dataset.sure) return run('deleteForm', { id: f.id }, d, '消しました');
+    d.dataset.sure = '1'; d.classList.add('fill'); d.textContent = 'もう一度押すと消します';
+  };
+}
+
+function viewManual(id) {
+  const m = manualOf(id);
+  setTabs(null);
+  if (!m) {
+    setBar({ title: 'マニュアル', back: true });
+    $('#main').innerHTML = `<div class="empty">このマニュアルは見つかりませんでした。削除された可能性があります。</div><a class="btn wide" href="#manuals">マニュアル一覧へ</a>`;
+    return;
+  }
+  const cat = catOf(m.categoryId);
+  setBar({ title: m.title, sub: cat?.name, back: true });
+  const prep = !String(m.body || '').trim();
+  $('#main').innerHTML = `
+    ${m.updatedAt ? `<div class="meta"><span>更新：${esc(fmtDate(m.updatedAt, true))}</span>${m.updatedBy ? `<span>更新した人：${esc(m.updatedBy)}</span>` : ''}</div>` : ''}
+    ${prep ? `<div class="prep-box"><span style="font-size:28px">${esc(m.icon || '📄')}</span>このマニュアルはまだ準備中です。<button class="btn pri" id="writeBtn">内容を書く（暗証番号）</button></div>`
+           : `<div class="doc">${renderBody(m.body)}</div>`}
+    <div class="btns" style="margin-top:8px">
+      <button class="btn ${isFav(m.id) ? 'on' : ''}" id="favBtn" aria-pressed="${isFav(m.id)}">${isFav(m.id) ? '★ お気に入り中' : '☆ お気に入り'}</button>
+      <button class="btn" id="editBtn">✏️ 編集</button>
+    </div>`;
+  $('#favBtn').onclick = () => {
+    favs = isFav(m.id) ? favs.filter(x => x !== m.id) : [m.id, ...favs];
+    store.set('favs', favs);
+    toast(isFav(m.id) ? 'お気に入りに入れました' : 'お気に入りから外しました');
+    viewManual(id);
+  };
+  const go = () => { location.hash = 'edit/' + encodeURIComponent(m.id); };
+  $('#editBtn').onclick = go;
+  const w = $('#writeBtn'); if (w) w.onclick = go;
+}
+
+// 編集画面
+async function viewEditor(id, newCat) {
+  const m = id ? manualOf(id) : null;
+  if (id && !m) { viewManual(id); return; }
+  setTabs(null);
+  setBar({ title: m ? 'マニュアルを編集' : 'マニュアルを追加', back: true });
+  const myHash = location.hash;
+  const ok = await ensurePass();
+  if (location.hash !== myHash) return; // 暗証番号の入力中に別の画面へ移った
+  if (!ok) { editor = null; goBack(); return; }
+  const draftKey = 'draft.' + (m ? m.id : 'new');
+  editor = {
+    id: m?.id || '', base: m?.updatedAt || '',
+    title: m?.title || '', icon: m?.icon || '📄', categoryId: m?.categoryId || newCat || DATA.categories[0]?.id || '', body: m?.body || '',
+    preview: false, draftKey, warned: false
+  };
+  const draft = store.get(draftKey, null);
+  const hasDraft = draft && (draft.title !== editor.title || draft.body !== editor.body || draft.icon !== editor.icon || draft.categoryId !== editor.categoryId);
+  $('#main').innerHTML = `
+    ${hasDraft ? `<div class="msg warn" id="draftMsg">保存していない書きかけの内容があります。<div class="btns" style="margin-top:8px"><button class="btn" id="draftDrop">捨てる</button><button class="btn pri" id="draftUse">書きかけを戻す</button></div></div>` : ''}
+    <div class="guard"><b>患者さんの名前・生年月日・処方内容などは書かないでください。</b>このページはスタッフならだれでも見られます。</div>
+    <div class="field"><label for="eTitle">タイトル</label><input class="inp" id="eTitle" maxlength="100" placeholder="例：分包機の紙詰まり対処" value=""></div>
+    <div class="field"><span class="lb">アイコン</span><div class="icon-row"><input class="inp" id="eIcon" maxlength="8" aria-label="アイコン（絵文字）"><div class="picks">${ICON_PICKS.map(i => `<button type="button" data-pick="${i}" aria-label="${i}">${i}</button>`).join('')}</div></div></div>
+    <div class="field"><label for="eCat">カテゴリ</label><select class="inp" id="eCat">${DATA.categories.map(c => `<option value="${esc(c.id)}">${esc(c.icon)} ${esc(c.name)}</option>`).join('')}</select></div>
+    <div class="field">
+      <span class="lb">本文</span>
+      <div class="seg" role="group" aria-label="表示切り替え"><button type="button" id="segEdit" aria-pressed="true">書く</button><button type="button" id="segPrev" aria-pressed="false">プレビュー</button></div>
+      <textarea class="inp" id="eBody" placeholder="1. 最初にやること&#10;2. 次にやること&#10;! 注意すること"></textarea>
+      <div class="preview doc" id="ePrev" hidden></div>
+      <details class="help" ${editor.body ? '' : 'open'}><summary>書き方のルール</summary>
+        <table>
+          <tr><td>1. ○○</td><td>番号つきの手順になります</td></tr>
+          <tr><td>! ○○</td><td>オレンジ色の「注意」になります</td></tr>
+          <tr><td>## ○○</td><td>見出しになります</td></tr>
+          <tr><td>- ○○</td><td>箇条書きになります</td></tr>
+          <tr><td>**○○**</td><td>太字になります</td></tr>
+          <tr><td>動画 URL</td><td>GoogleドライブやYouTubeの動画を、画面の中で再生できます</td></tr>
+        </table>
+        <p class="hint" style="margin-bottom:10px">ふつうの文は、そのまま文章として表示されます。URLは押せるリンクになります。</p>
+      </details>
+    </div>
+    <div class="msg" id="eMsg" hidden></div>
+    <div class="btns"><button class="btn" id="eCancel">やめる</button><button class="btn pri" id="eSave">保存</button></div>
+    ${m ? '<div id="delArea"><button class="btn danger wide" id="eDel">このマニュアルを削除</button></div>' : ''}`;
+  const fill = s => { $('#eTitle').value = s.title; $('#eIcon').value = s.icon; $('#eCat').value = s.categoryId; $('#eBody').value = s.body; };
+  fill(editor);
+  const collect = () => ({ title: $('#eTitle').value, icon: $('#eIcon').value, categoryId: $('#eCat').value, body: $('#eBody').value });
+  const saveDraft = () => store.set(draftKey, collect());
+  ['eTitle', 'eIcon', 'eCat', 'eBody'].forEach(i => $('#' + i).addEventListener('input', saveDraft));
+  if (hasDraft) {
+    $('#draftUse').onclick = () => { fill(draft); $('#draftMsg').remove(); };
+    $('#draftDrop').onclick = () => { store.del(draftKey); $('#draftMsg').remove(); };
+  }
+  document.querySelectorAll('[data-pick]').forEach(b => b.onclick = () => { $('#eIcon').value = b.dataset.pick; saveDraft(); });
+  const setPrev = on => {
+    $('#segEdit').setAttribute('aria-pressed', !on); $('#segPrev').setAttribute('aria-pressed', on);
+    $('#eBody').hidden = on; $('#ePrev').hidden = !on;
+    if (on) $('#ePrev').innerHTML = renderBody($('#eBody').value) || '<p class="hint">本文がまだありません。</p>';
+  };
+  $('#segEdit').onclick = () => setPrev(false);
+  $('#segPrev').onclick = () => setPrev(true);
+  const msg = (text, kind) => { const el = $('#eMsg'); el.className = 'msg ' + (kind || ''); el.innerHTML = text; el.hidden = !text; };
+  $('#eCancel').onclick = () => { store.del(draftKey); editor = null; goBack(); };
+
+  $('#eSave').onclick = async () => {
+    const d = collect();
+    if (!d.title.trim()) { msg(ERRORS.notitle, 'err'); $('#eTitle').focus(); return; }
+    // 長い数字（保険証番号・電話番号など）があれば、いちど確認する
+    if (!editor.warned && /\d{8,}|\d{2,4}[-ー－]\d{2,4}[-ー－]\d{3,4}/.test(d.body.replace(/https?:\/\/\S+/g, ''))) {
+      editor.warned = true;
+      msg('本文に番号のような文字があります。<b>患者さんの情報ではないか</b>確認してください。問題なければ、もう一度「保存」を押してください。', 'warn');
+      return;
+    }
+    const btn = $('#eSave'); btn.disabled = true; btn.textContent = '保存中…'; msg('');
+    try {
+      const pass = await ensurePass(); if (!pass) throw Object.assign(new Error('cancel'), { code: 'cancel' });
+      const r = await apiPost('saveManual', { id: editor.id, baseUpdatedAt: editor.base, ...d }, pass);
+      store.del(draftKey); editor = null;
+      toast('保存しました');
+      const target = '#m/' + encodeURIComponent(r.saved);
+      if (stack[stack.length - 2] === target) history.back(); else replaceHash(target);
+    } catch (e) {
+      btn.disabled = false; btn.textContent = '保存';
+      if (e.code === 'cancel') return;
+      if (e.code === 'badpass') { session.del('pass'); msg(ERRORS.badpass + 'もう一度「保存」を押すと、暗証番号を聞きなおします。', 'err'); return; }
+      if (e.code === 'conflict') {
+        try { setData(await apiGet()); } catch (_) {}
+        const now = manualOf(editor.id);
+        editor.base = now?.updatedAt || '';
+        msg(`編集中に、${esc(now?.updatedBy || 'ほかの人')}さんがこのマニュアルを先に保存しました（${esc(fmtDate(now?.updatedAt, true))}）。<br>あなたの入力はそのまま残っています。もう一度「保存」を押すと、<b>あなたの内容で上書き</b>します。`, 'warn');
+        return;
+      }
+      msg(ERRORS[e.code] || 'エラーが起きました。' + (e.detail ? '（' + esc(e.detail) + '）' : ''), 'err');
+    }
+  };
+  const bindDel = () => { const b = $('#eDel'); if (b) b.onclick = askDel; };
+  const askDel = () => {
+    $('#delArea').innerHTML = `<div class="confirm"><b>「${esc(m.title)}」を削除しますか？</b><span class="hint" style="color:inherit">削除すると一覧から消えます。（スプレッドシートには記録が残ります）</span><div class="btns"><button class="btn" id="delNo">やめる</button><button class="btn danger fill" id="delYes">削除する</button></div></div>`;
+    $('#delNo').onclick = () => { $('#delArea').innerHTML = '<button class="btn danger wide" id="eDel">このマニュアルを削除</button>'; bindDel(); };
+    $('#delYes').onclick = async () => {
+      const b = $('#delYes'); b.disabled = true; b.textContent = '削除中…';
+      try {
+        await apiPost('deleteManual', { id: m.id }, await ensurePass());
+        store.del(draftKey); editor = null;
+        favs = favs.filter(x => x !== m.id); store.set('favs', favs);
+        toast('削除しました'); replaceHash('#manuals');
+      } catch (e) {
+        if (e.code === 'badpass') session.del('pass');
+        b.disabled = false; b.textContent = '削除する';
+        msg(ERRORS[e.code] || 'エラーが起きました。', 'err');
+      }
+    };
+  };
+  bindDel();
+}
+
+// ───────── 画面の切り替え ─────────
+// このページの中で開いた画面の履歴（「戻る」ボタン用）
+const stack = [location.hash || '#home'];
+let replacing = false;
+function replaceHash(h) {
+  if (location.hash === h) { route(); return; }
+  replacing = true; location.replace(h);
+}
+function curPage() { return decodeURIComponent(location.hash.replace(/^#\/?/, '')).split('/')[0]; }
+function parentOf(hash) {
+  const [page, ...rest] = decodeURIComponent(hash.replace(/^#\/?/, '')).split('/');
+  if (page === 'edit') return '#m/' + encodeURIComponent(rest.join('/'));
+  if (page === 'new') return '#manuals';
+  return '#' + lastTab;
+}
+function goBack() {
+  editor = null;
+  if (stack.length > 1) history.back(); else replaceHash(parentOf(location.hash));
+}
+function route() {
+  if (!$('#modal').hidden) closeModal();
+  if (!DATA) { setBar({ title: 'マニュアルポータル', sub: 'イトー寿薬局・やしお薬局' }); setTabs(null); $('#main').innerHTML = loadError ? '' : '<div class="loading">読み込み中…</div>'; return; }
+  const h = decodeURIComponent(location.hash.replace(/^#\/?/, ''));
+  const [page, arg] = [h.split('/')[0], h.split('/').slice(1).join('/')];
+  if (page !== 'edit' && page !== 'new') editor = null;
+  if (['home', 'manuals', 'favs', 'forms', ''].includes(page)) lastTab = page || 'home';
+  if (page !== 'forms') formEdit = false;
+  switch (page) {
+    case 'manuals': viewManuals(); break;
+    case 'favs': viewFavs(); break;
+    case 'forms': viewForms(); break;
+    case 'm': viewManual(arg); break;
+    case 'edit': viewEditor(arg); break;
+    case 'new': viewEditor('', arg); break;
+    default: viewHome();
+  }
+  if (!['home', ''].includes(page) || !query) window.scrollTo(0, 0);
+}
+window.addEventListener('hashchange', () => {
+  const h = location.hash || '#home';
+  if (replacing) { stack[stack.length - 1] = h; replacing = false; }
+  else if (stack.length > 1 && stack[stack.length - 2] === h) stack.pop();
+  else stack.push(h);
+  route();
+});
+document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && API_URL && !editor) refresh(); });
+
+route();
+refresh();
 </script>
+</body>
+</html>
